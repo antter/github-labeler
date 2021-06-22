@@ -1,7 +1,7 @@
-project-template
+github-labeler
 ==============================
 
-template for the team to use
+This project will be a model for automatically labelling issues (and possibly PRs!) with the necessary tags. Much work has been done in this direction in the past, but only for the three most common tags: bug, feature, question. Using fastText and multiple binary classification models instead of one multi-label model we aim to create a model that can tag issues with all labels that are used. The aim is for this model to be integrated in a bot that can automatically tag issues.
 
 Project Organization
 ------------
