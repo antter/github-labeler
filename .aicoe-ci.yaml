@@ -2,13 +2,12 @@
 # Example `.aicoe-ci.yaml` with a full list of config options is available here: https://github.com/AICoE/aicoe-ci/blob/master/docs/.aicoe-ci.yaml
 check:
   # Uncomment following line to build a public image of this repo
-   - thoth-build
+  - thoth-build
 # Uncomment following lines to build a public image of this repo
 build:
-   build-stratergy: Source
-   build-source-script: "image:///opt/app-root/builder"
-   base-image: quay.io/thoth-station/s2i-custom-notebook:latest
-#   registry: quay.io
-#   registry-org: aicoe
-#   registry-project: <CHANGE-ME>
-#   registry-secret: aicoe-pusher-secret
+   build-stratergy: Dockerfile
+   dockerfile-path: Dockerfile
+   registry: quay.io
+   registry-org: atersaak
+   registry-project: github-labeler
+   registry-secret: ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICJZWFJsY25OaFlXc3JjbTlpYjNRNlRrNDRTRk5FU2xoSFZFRTRObGd6VXpRNFJEbEhNVU5LVGpVMFZrRkpORXBPT1RSWVZraFZWazFUTlRCT1ZFaEpRbFEyVVZFNVFrVTBOMFJHVmtzM1Z3PT0iLAogICAgICAiZW1haWwiOiAiIgogICAgfQogIH0KfQ
