@@ -5,8 +5,8 @@ check:
   - thoth-build
 # Uncomment following lines to build a public image of this repo
 build:
-   build-stratergy: Dockerfile
-   dockerfile-path: Dockerfile
+   build-stratergy: Source
+   build-source: "quay.io/thoth-station/s2i-elyra-custom-notebook:v0.3.2"
    registry: quay.io
    registry-org: atersaak
    registry-project: github-labeler
