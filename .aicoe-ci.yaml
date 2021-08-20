@@ -7,6 +7,7 @@ check:
 build:
    build-stratergy: Source
    base-image: quay.io/thoth-station/s2i-elyra-custom-notebook:latest
+   build-source-script: "image:///opt/app-root/builder"
    registry: quay.io
    registry-org: atersaak
    registry-project: github-labeler
