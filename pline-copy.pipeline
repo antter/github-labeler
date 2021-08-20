@@ -1,0 +1,166 @@
+{
+  "doc_type": "pipeline",
+  "version": "3.0",
+  "json_schema": "http://api.dataplatform.ibm.com/schemas/common-pipeline/pipeline-flow/pipeline-flow-v3-schema.json",
+  "id": "d6cfffdf-d30a-4eb8-95e6-dd75399df29e",
+  "primary_pipeline": "5382630a-0495-4d3d-a0d7-812fda318aaf",
+  "pipelines": [
+    {
+      "id": "5382630a-0495-4d3d-a0d7-812fda318aaf",
+      "nodes": [
+        {
+          "id": "2490c535-84bc-4640-b028-1b4c08c44a78",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "src/data/issue_extraction.ipynb",
+            "runtime_image": "quay.io/atersaak/github-labeler:latest",
+            "env_vars": [
+              "OBJECT_STORAGE_ENDPOINT_URL=",
+              "AWS_ACCESS_KEY_ID=",
+              "AWS_SECRET_ACCESS_KEY=",
+              "OBJECT_STORAGE_BUCKET_NAME=",
+              "GITHUB_ACCESS_TOKEN=",
+              "REPO_NAME="
+            ],
+            "include_subdirectories": false,
+            "invalidNodeError": "notebook does not exist",
+            "outputs": [],
+            "dependencies": [],
+            "cpu": 1,
+            "memory": 4,
+            "gpu": 0,
+            "ui_data": {
+              "label": "issue_extraction.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 289,
+              "y_pos": 430.59375,
+              "description": "Notebook file",
+              "decorations": [
+                {
+                  "id": "error",
+                  "image": "data:image/svg+xml;utf8,%3Csvg%20focusable%3D%22false%22%20preserveAspectRatio%3D%22xMidYMid%20meet%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22%23d32f2f%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20aria-hidden%3D%22true%22%3E%0A%20%20%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2210%22%3E%3C%2Fcircle%3E%0A%20%20%3Ctitle%3EError%3C%2Ftitle%3E%0A%3C%2Fsvg%3E%0A",
+                  "outline": false,
+                  "position": "topLeft",
+                  "x_pos": 20,
+                  "y_pos": 3
+                }
+              ]
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "987f98d1-92ae-4979-8a73-d8231b3ad3aa",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "models/fastText_expirements.ipynb",
+            "runtime_image": "quay.io/atersaak/github-labeler:latest",
+            "env_vars": [
+              "OBJECT_STORAGE_ENDPOINT_URL=",
+              "AWS_ACCESS_KEY_ID=",
+              "AWS_SECRET_ACCESS_KEY=",
+              "OBJECT_STORAGE_BUCKET_NAME=",
+              "GITHUB_ACCESS_TOKEN=",
+              "REPO_NAME="
+            ],
+            "include_subdirectories": false,
+            "invalidNodeError": "notebook does not exist",
+            "outputs": [],
+            "dependencies": [],
+            "cpu": 1,
+            "memory": 4,
+            "ui_data": {
+              "label": "fastText_expirements.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 584,
+              "y_pos": 430,
+              "description": "Notebook file",
+              "decorations": [
+                {
+                  "id": "error",
+                  "image": "data:image/svg+xml;utf8,%3Csvg%20focusable%3D%22false%22%20preserveAspectRatio%3D%22xMidYMid%20meet%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22%23d32f2f%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20aria-hidden%3D%22true%22%3E%0A%20%20%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2210%22%3E%3C%2Fcircle%3E%0A%20%20%3Ctitle%3EError%3C%2Ftitle%3E%0A%3C%2Fsvg%3E%0A",
+                  "outline": false,
+                  "position": "topLeft",
+                  "x_pos": 20,
+                  "y_pos": 3
+                }
+              ]
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "beeeae1b-ed76-497e-a391-c9153b7d6e3e",
+                  "node_id_ref": "2490c535-84bc-4640-b028-1b4c08c44a78",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "app_data": {
+        "ui_data": {
+          "comments": []
+        },
+        "version": 3
+      },
+      "runtime_ref": ""
+    }
+  ],
+  "schemas": []
+}
