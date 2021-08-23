@@ -2,6 +2,10 @@ import os
 import boto3
 from dotenv import find_dotenv, load_dotenv
 from nltk.corpus import stopwords
+import re
+from string import punctuation
+import nltk
+from nltk.stem import PorterStemmer
 
 load_dotenv(find_dotenv())
 
@@ -21,16 +25,15 @@ if use_ceph:
         endpoint_url=s3_endpoint_url,
     )
     
-    response = s3.get_object(bucket = s3_bucket, key = 'github-labeler/wordlist.txt')
+    response = s3.get_object(Bucket = s3_bucket, Key = 'github-labeler/wordlist.txt')
     txt = response.get('Body')
-    print(type(txt))
-    print(txt)
+    words = next(txt).split(b'\n')
 
 else:
     with open('../../wordlist.txt', 'rb') as f:
-        words = f.readlines()
-        
-words = set(words)
+        words = f.read().split(b'\n')
+
+words = set([word.decode('utf-8') for word in words])
 
 ### preprocess functions defined below
 
@@ -135,12 +138,14 @@ def all_punc(word):
 
 ### process function to be imported when preprocessing
 
+ps = PorterStemmer()
+
 def process(title, body):
     stopwds = set(stopwords.words("english"))
-    for i, row in issues_df.iterrows():
-        listed_words = nltk.word_tokenize(
-            preprocess(title + " " + body if type(body) == str else row.title).lower()
-        )
-        listed_words = [word for word in listed_words if not all_punc(word)]
-        stemmed = [ps.stem(word) for word in listed_words if word not in stopwds]
-        ret = [word for word in stemmed if word in words]
+    listed_words = nltk.word_tokenize(
+        preprocess(title + " " + body if type(body) == str else row.title).lower()
+    )
+    listed_words = [word for word in listed_words if not all_punc(word)]
+    stemmed = [ps.stem(word) for word in listed_words if word not in stopwds]
+    ret = [word for word in stemmed if word in words]
+    return ret
