@@ -11,4 +11,4 @@ build:
    registry: quay.io
    registry-org: atersaak
    registry-project: github-labeler
-   registry-secret: ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICJZWFJsY25OaFlXc3JjbTlpYjNRNlRrNDRTRk5FU2xoSFZFRTRObGd6VXpRNFJEbEhNVU5LVGpVMFZrRkpORXBPT1RSWVZraFZWazFUTlRCT1ZFaEpRbFEyVVZFNVFrVTBOMFJHVmtzM1Z3PT0iLAogICAgICAiZW1haWwiOiAiIgogICAgfQogIH0KfQ
+   registry-secret: antter-thoth-pusher-secret
