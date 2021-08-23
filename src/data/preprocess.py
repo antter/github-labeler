@@ -1,3 +1,5 @@
+"""Module that contains preprocess function called process that will process github issue text."""
+
 import os
 import boto3
 from dotenv import find_dotenv, load_dotenv
@@ -24,16 +26,16 @@ if use_ceph:
         aws_secret_access_key=s3_secret_key,
         endpoint_url=s3_endpoint_url,
     )
-    
-    response = s3.get_object(Bucket = s3_bucket, Key = 'github-labeler/wordlist.txt')
-    txt = response.get('Body')
-    words = next(txt).split(b'\n')
+
+    response = s3.get_object(Bucket=s3_bucket, Key="github-labeler/wordlist.txt")
+    txt = response.get("Body")
+    words = next(txt).split(b"\n")
 
 else:
-    with open('../../wordlist.txt', 'rb') as f:
-        words = f.read().split(b'\n')
+    with open("../../wordlist.txt", "rb") as f:
+        words = f.read().split(b"\n")
 
-words = set([word.decode('utf-8') for word in words])
+words = set([word.decode("utf-8") for word in words])
 
 ### preprocess functions defined below
 
@@ -44,9 +46,7 @@ code_block_regex = re.compile(pattern, re.DOTALL)
 
 
 def code_block(string):
-    """
-    replaces code blocks with a CODE_BLOCK
-    """
+    """Replace code blocks with a CODE_BLOCK."""
     string = re.sub(code_block_regex, "CODE_BLOCK", string)
     return string
 
@@ -58,9 +58,7 @@ inline_code_regex = re.compile(pattern, re.DOTALL)
 
 
 def code_variable(string):
-    """
-    replaces inline code with VARIABLE
-    """
+    """Replace inline code with VARIABLE."""
     string = re.sub(inline_code_regex, " INLINE ", string)
     return string
 
@@ -72,9 +70,7 @@ tagged_user_regex = re.compile(pattern)
 
 
 def tagged_user(string):
-    """
-    replaces a user tagged with USER
-    """
+    """Replace a user tagged with USER."""
     string = re.sub(tagged_user_regex, " USER ", string)
     return string
 
@@ -86,9 +82,7 @@ url_regex = re.compile(pattern)
 
 
 def urls(string):
-    """
-    replaces URLs with URL
-    """
+    """Replace URLs with URL."""
     string = re.sub(url_regex, " URL ", string)
     return string
 
@@ -100,9 +94,7 @@ enter_regex = re.compile(pattern, re.DOTALL)
 
 
 def enters(string):
-    """
-    replaces \r\n with ENTER
-    """
+    """Replace newline characters with ENTER."""
     string = re.sub(enter_regex, " ", string)
     return string
 
@@ -114,36 +106,42 @@ bold_regex = re.compile(pattern, re.DOTALL)
 
 
 def bold(string):
-    """
-    replace bold characters with bold word
-    """
+    """Replace bold characters with bold word."""
     string = re.sub(bold_regex, " BOLD ", string)
     return string
 
 
 function_list.append(bold)
 
+
 def preprocess(string):
+    """Put all preprocessing functions together."""
     for func in function_list:
         string = func(string)
     return string
 
+
 punct = set(punctuation)
 
+
 def all_punc(word):
+    """Check if a word is entirely punctuation."""
     for ch in word:
         if ch not in punct:
             return False
     return True
 
+
 ### process function to be imported when preprocessing
 
 ps = PorterStemmer()
 
+
 def process(title, body):
+    """Call this function when wishing to preprocess an issue."""
     stopwds = set(stopwords.words("english"))
     listed_words = nltk.word_tokenize(
-        preprocess(title + " " + body if type(body) == str else row.title).lower()
+        preprocess(title + " " + body if type(body) == str else title).lower()
     )
     listed_words = [word for word in listed_words if not all_punc(word)]
     stemmed = [ps.stem(word) for word in listed_words if word not in stopwds]
