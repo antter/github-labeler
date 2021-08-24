@@ -48,41 +48,44 @@ with open("labellist.txt", "r") as h:
     labels = [lbl.replace("\n", "") for lbl in h.readlines()]
 
 
-@application.route("/predict", methods=["POST"])
+@application.route("/predict", methods=["POST", "GET"])
 def predict():
     """Take json data of title, body, created_by and returns a tab separated list of strings."""
-    data = request.get_json() or "{}"
-    data = json.loads(data)
-    title, body, creator = data["title"], data["body"], data["created_by"]
-    if creator in bots:
-        return ""
-    ret = []
-    body = body.replace("\r", "<R>").replace("\n", "<N>")
-    input_ = title + "<SEP>" + body
+    if request.method == 'POST':
+        data = request.get_json() or "{}"
+        data = json.loads(data)
+        title, body, creator = data["title"], data["body"], data["created_by"]
+        if creator in bots:
+            return ""
+        ret = []
+        body = body.replace("\r", "<R>").replace("\n", "<N>")
+        input_ = title + "<SEP>" + body
 
-    if use_ceph:
-        for lbl in labels:
-            path = os.path.join("saved_models", lbl.replace("/", "_") + ".bin")
-            model = s3.get_object(Bucket=s3_bucket, Key=path)
-            with open(path, "wb") as f:
-                for i in model["Body"]:
-                    f.write(i)
-            model = fasttext.load_model(path)
-            pred, prob = model.predict(input_)
-            if pred[0] == "__label__0" and prob > threshold:
-                print(prob)
-                ret.append(lbl)
-            os.remove(path)
+        if use_ceph:
+            for lbl in labels:
+                path = os.path.join("saved_models", lbl.replace("/", "_") + ".bin")
+                model = s3.get_object(Bucket=s3_bucket, Key=path)
+                with open(path, "wb") as f:
+                    for i in model["Body"]:
+                        f.write(i)
+                model = fasttext.load_model(path)
+                pred, prob = model.predict(input_)
+                if pred[0] == "__label__0" and prob > threshold:
+                    print(prob)
+                    ret.append(lbl)
+                os.remove(path)
 
+        else:
+            for lbl in labels:
+                path = os.path.join("saved_models", lbl.replace("/", "_") + ".bin")
+                model = fasttext.load_model(path)
+                pred, prob = model.predict(input_)
+                if pred[0] == "__label__0" and prob > threshold:
+                    print(prob)
+                    ret.append(lbl)
+        return "\t".join(ret)
     else:
-        for lbl in labels:
-            path = os.path.join("saved_models", lbl.replace("/", "_") + ".bin")
-            model = fasttext.load_model(path)
-            pred, prob = model.predict(input_)
-            if pred[0] == "__label__0" and prob > threshold:
-                print(prob)
-                ret.append(lbl)
-    return "\t".join(ret)
+        return ''
 
 
 if __name__ == "__main__":
