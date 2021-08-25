@@ -30,19 +30,6 @@ if use_ceph:
 
 application = Flask('github-labeler')
 
-@application.before_first_request
-def before_first_request_callback():
-    """Register callback, runs before first request to this service."""
-    model_version_metric.set(1)
-    _LOGGER.info("Running once before first request to expose metric.")
-
-
-@application.after_request
-def extend_response_headers(response):
-    """Just add my signature."""
-    response.headers["GITHUB-LABELER-VERSION"] = f"v{__version__}"
-    return response
-
 # read in bots
 
 if use_ceph:
