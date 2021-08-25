@@ -7,7 +7,6 @@ import logging
 from flask import Flask, request, redirect
 from dotenv import load_dotenv, find_dotenv
 import boto3
-from flask_cors import CORS
 
 _LOGGER = logging.getLogger('github-labeler')
 
@@ -30,13 +29,6 @@ if use_ceph:
     )
 
 application = Flask('github-labeler')
-CORS(application)
-
-
-_REDIRECT_URL = os.getenv(
-    "THOTH_AIDEVSECOPS_REDIRECT_URL",
-    "https://github.com/thoth-station/elyra-aidevsecops-tutorial/blob/master/README.md",
-)
 
 @application.before_first_request
 def before_first_request_callback():
@@ -48,14 +40,8 @@ def before_first_request_callback():
 @application.after_request
 def extend_response_headers(response):
     """Just add my signature."""
-    response.headers["X-Thoth-AIDevSecOps-Tutorial-Version"] = f"v{__version__}"
+    response.headers["GITHUB-LABELER-VERSION"] = f"v{__version__}"
     return response
-
-
-@application.route("/")
-def main():
-    """Show this to humans."""
-    return redirect(_REDIRECT_URL, code=308)
 
 # read in bots
 
