@@ -3,9 +3,13 @@
 import os
 import fasttext
 import json
-from flask import Flask, request
+import logging
+from flask import Flask, request, redirect
 from dotenv import load_dotenv, find_dotenv
 import boto3
+from flask_cors import CORS
+
+_LOGGER = logging.getLogger('github-labeler')
 
 # load environment variables
 load_dotenv(find_dotenv())
@@ -25,7 +29,33 @@ if use_ceph:
         endpoint_url=s3_endpoint_url,
     )
 
-application = Flask(__name__)
+application = Flask('github-labeler')
+CORS(application)
+
+
+_REDIRECT_URL = os.getenv(
+    "THOTH_AIDEVSECOPS_REDIRECT_URL",
+    "https://github.com/thoth-station/elyra-aidevsecops-tutorial/blob/master/README.md",
+)
+
+@application.before_first_request
+def before_first_request_callback():
+    """Register callback, runs before first request to this service."""
+    model_version_metric.set(1)
+    _LOGGER.info("Running once before first request to expose metric.")
+
+
+@application.after_request
+def extend_response_headers(response):
+    """Just add my signature."""
+    response.headers["X-Thoth-AIDevSecOps-Tutorial-Version"] = f"v{__version__}"
+    return response
+
+
+@application.route("/")
+def main():
+    """Show this to humans."""
+    return redirect(_REDIRECT_URL, code=308)
 
 # read in bots
 
@@ -85,8 +115,9 @@ def predict():
                     ret.append(lbl)
         return "\t".join(ret)
     else:
-        return ''
+        return 'ALL GOOD'
 
 
 if __name__ == "__main__":
+    _LOGGER.debug("Debug mode is on")
     application.run(host="0.0.0.0", port=8080)
