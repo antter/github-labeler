@@ -136,10 +136,10 @@ def all_punc(word):
 
 ps = PorterStemmer()
 
+stopwds = set(stopwords.words("english"))
 
 def process(title, body):
     """Call this function when wishing to preprocess an issue."""
-    stopwds = set(stopwords.words("english"))
     listed_words = nltk.word_tokenize(
         preprocess(title + " " + body if type(body) == str else title).lower()
     )
