@@ -138,6 +138,7 @@ ps = PorterStemmer()
 
 stopwds = set(stopwords.words("english"))
 
+
 def process(title, body):
     """Call this function when wishing to preprocess an issue."""
     listed_words = nltk.word_tokenize(
