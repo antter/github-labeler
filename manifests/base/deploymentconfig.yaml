@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: github-labeler
-          image: quay.io/atersaak/github-labeler:pr-40
+          image: quay.io/atersaak/github-labeler
           ports:
             - containerPort: 8080
               protocol: TCP

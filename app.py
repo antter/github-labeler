@@ -4,7 +4,7 @@ import os
 import fasttext
 import json
 import logging
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from dotenv import load_dotenv, find_dotenv
 import boto3
 
@@ -88,7 +88,11 @@ def predict():
                     ret.append(lbl)
         return "\t".join(ret)
     else:
-        return "ALL GOOD"
+        return (
+            jsonify({"status": "ready"}),
+            200,
+            {"ContentType": "application/json"},
+        )
 
 
 if __name__ == "__main__":
