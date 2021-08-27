@@ -1,0 +1,50 @@
+---
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: github-labeler
+spec:
+  replicas: 1
+  selector:
+    service: github-labeler
+    app.kubernetes.io/name: thoth
+    app.kubernetes.io/component: github-labeler
+    app.kubernetes.io/managed-by: antter
+  template:
+    metadata:
+      labels:
+        service: github-labeler
+        app.kubernetes.io/name: thoth
+        app.kubernetes.io/component: github-labeler
+        app.kubernetes.io/managed-by: antter
+    spec:
+      containers:
+        - name: github-labeler
+          image: quay.io/atersaak/github-labeler
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "384Mi"
+              cpu: "100m"
+            limits:
+              memory: "768Mi"
+              cpu: "100m"
+          readinessProbe:
+            httpGet:
+              path: "/predict"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: "/predict"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            timeoutSeconds: 10
+  test: false
