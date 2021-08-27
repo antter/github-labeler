@@ -40,11 +40,15 @@ application = Flask(__name__)
 # read in bots
 
 if use_ceph:
-    lbllist = s3.get_object(Bucket=s3_bucket, Key=f"github_labeler/{savename}/labellist.txt")
+    lbllist = s3.get_object(
+        Bucket=s3_bucket, Key=f"github_labeler/{savename}/labellist.txt"
+    )
     with open("labellist.txt", "wb") as f:
         for i in lbllist["Body"]:
             f.write(i)
-    botlist = s3.get_object(Bucket=s3_bucket, Key=f"github_labeler/{savename}/botlist.txt")
+    botlist = s3.get_object(
+        Bucket=s3_bucket, Key=f"github_labeler/{savename}/botlist.txt"
+    )
     with open("botlist.txt", "wb") as f:
         for i in botlist["Body"]:
             f.write(i)
@@ -73,7 +77,9 @@ def predict():
     if use_ceph:
         for lbl in labels:
             path = os.path.join("saved_models", lbl.replace("/", "_") + ".bin")
-            model = s3.get_object(Bucket=s3_bucket, Key=f'github-labeler/{savename}/{path}')
+            model = s3.get_object(
+                Bucket=s3_bucket, Key=f"github-labeler/{savename}/{path}"
+            )
             with open(path, "wb") as f:
                 for i in model["Body"]:
                     f.write(i)
