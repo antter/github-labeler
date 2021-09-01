@@ -11,6 +11,18 @@ Sphinx = "*"
 [packages]
 src = {editable = true, path = "./"}
 awscli = "*"
+pandas = "*"
+requests = "*"
+boto3 = "*"
+fasttext = "*"
+skift = "*"
+numpy = "*"
+tqdm = "*"
+seaborn = "*"
+matplotlib = "*"
+python-dotenv = "*"
+Flask = "*"
+PyGithub = "*"
 
 [requires]
 python_version = "3.8"
