@@ -88,22 +88,33 @@ def predict():
                     f.write(i)
             if mod == "ft":
                 model = fasttext.load_model(path)
+                pred, prob = model.predict(input_)
                 if pred[0] == "__label__0" and prob > threshold:
                     ret.append(lbl)
             else:
-                joblib.load(path)
-                pred, prob = model.predict_proba(input_)
-                ret.append(lbl)
+                model = joblib.load(path)
+                pred = model.predict(input_)
+                if pred[0] == 0:
+                    ret.append(lbl)
             os.remove(path)
 
     else:
-        for lbl in labels:
-            path = os.path.join("saved_models", lbl.replace("/", "_") + ".bin")
-            model = fasttext.load_model(path)
-            pred, prob = model.predict(input_)
-            if pred[0] == "__label__0" and prob > threshold:
-                print(prob)
-                ret.append(lbl)
+        for lbl_type in labels:
+            lbl, mod = lbl_type.split("\t")
+            path = os.path.join("saved_models", lbl.replace("/", "_") + filename[mod])
+            with open(path, "wb") as f:
+                for i in model["Body"]:
+                    f.write(i)
+            if mod == "ft":
+                model = fasttext.load_model(path)
+                if pred[0] == "__label__0" and prob > threshold:
+                    ret.append(lbl)
+            else:
+                model = joblib.load(path)
+                pred = model.predict(input_)
+                if pred[0] == 0:
+                    ret.append(lbl)
+            os.remove(path)
     return "\t".join(ret)
 
 
