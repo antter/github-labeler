@@ -23,6 +23,7 @@ matplotlib = "*"
 python-dotenv = "*"
 Flask = "*"
 PyGithub = "*"
+nltk = "*"
 
 [requires]
 python_version = "3.8"
