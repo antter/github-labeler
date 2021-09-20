@@ -1,20 +1,33 @@
 """This is a simple script with a predict function to launch the app."""
 
 import os
-import fasttext
 import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from dotenv import load_dotenv, find_dotenv
 import boto3
 import joblib
+from models.model_classes import FtModel
+import sys
+
+sys.path.append("./models")
 
 # load environment variables
 load_dotenv(find_dotenv())
+
+
+# for unpickling tfidf object
+def dummy_fun(x):
+    """Return the input as a hacky fix to pickling a tf-idf object that uses tokenized text."""
+    return x
+
 
 use_ceph = True
 threshold = 0.6
 
 name = os.getenv("REPO_NAME")
+
+if not os.path.isdir("models/saved_models"):
+    os.path.mkdir("models/saved_models")
 
 if "/" in name:
     REPO = name
@@ -42,13 +55,13 @@ application = Flask(__name__)
 
 if use_ceph:
     lbllist = s3.get_object(
-        Bucket=s3_bucket, Key=f"github_labeler/{savename}/labellist.txt"
+        Bucket=s3_bucket, Key=f"github-labeler/{savename}/labellist.txt"
     )
     with open("labellist.txt", "wb") as f:
         for i in lbllist["Body"]:
             f.write(i)
     botlist = s3.get_object(
-        Bucket=s3_bucket, Key=f"github_labeler/{savename}/botlist.txt"
+        Bucket=s3_bucket, Key=f"github-labeler/{savename}/botlist.txt"
     )
     with open("botlist.txt", "wb") as f:
         for i in botlist["Body"]:
@@ -63,7 +76,7 @@ with open("labellist.txt", "r") as h:
     labels = [lbl.replace("\n", "") for lbl in h.readlines()]
 
 
-@application.route("/predict", methods=["POST"])
+@application.route("/predict", methods=["POST", "GET"])
 def predict():
     """Take json data of title, body, created_by and returns a tab separated list of strings."""
     data = request.get_json() or "{}"
@@ -72,49 +85,58 @@ def predict():
     if creator in bots:
         return ""
     ret = []
-    body = body.replace("\r", "<R>").replace("\n", "<N>")
-    input_ = title + "<SEP>" + body
-
     filename = {"ft": ".bin", "svm": ".joblib"}
-    if use_ceph:
-        for lbl_type in labels:
-            lbl, mod = lbl_type.split("\t")
-            path = os.path.join("saved_models", lbl.replace("/", "_") + filename[mod])
-            model = s3.get_object(
-                Bucket=s3_bucket, Key=f"github-labeler/{savename}/{path}"
-            )
-            with open(path, "wb") as f:
-                for i in model["Body"]:
-                    f.write(i)
-            if mod == "ft":
-                model = fasttext.load_model(path)
-                pred, prob = model.predict(input_)
-                if pred[0] == "__label__0" and prob > threshold:
-                    ret.append(lbl)
-            else:
-                model = joblib.load(path)
-                pred = model.predict(input_)
-                if pred[0] == 0:
-                    ret.append(lbl)
-            os.remove(path)
+    if request.method == "POST":
+        if use_ceph:
+            for lbl_type in labels:
+                lbl, mod = lbl_type.split("\t")
+                path = os.path.join(
+                    "saved_models", lbl.replace("/", "_") + filename[mod]
+                )
+                model = s3.get_object(
+                    Bucket=s3_bucket, Key=f"github-labeler/{savename}/{path}"
+                )
+                with open(os.path.join("models", path), "wb") as f:
+                    for i in model["Body"]:
+                        f.write(i)
+                if mod == "ft":
+                    model = FtModel(os.path.join("models", path))
+                    pred = model.inference(title, body)
+                    if pred == 1:
+                        ret.append(lbl)
+                else:
+                    model = joblib.load(os.path.join("models", path))
+                    pred = model.inference(title, body)
+                    if pred == 1:
+                        ret.append(lbl)
+                os.remove(os.path.join("models", path))
 
+        else:
+            for lbl_type in labels:
+                lbl, mod = lbl_type.split("\t")
+                path = os.path.join(
+                    "saved_models", lbl.replace("/", "_") + filename[mod]
+                )
+                with open(os.path.join("models", path), "wb") as f:
+                    for i in model["Body"]:
+                        f.write(i)
+                if mod == "ft":
+                    model = FtModel(os.path.join("models", path))
+                    model.inference(title, body)
+                    if pred == 1:
+                        ret.append(lbl)
+                else:
+                    model = joblib.load(os.path.join("models", path))
+                    model.inference(title, body)
+                    if pred == 1:
+                        ret.append(lbl)
     else:
-        for lbl_type in labels:
-            lbl, mod = lbl_type.split("\t")
-            path = os.path.join("saved_models", lbl.replace("/", "_") + filename[mod])
-            with open(path, "wb") as f:
-                for i in model["Body"]:
-                    f.write(i)
-            if mod == "ft":
-                model = fasttext.load_model(path)
-                if pred[0] == "__label__0" and prob > threshold:
-                    ret.append(lbl)
-            else:
-                model = joblib.load(path)
-                pred = model.predict(input_)
-                if pred[0] == 0:
-                    ret.append(lbl)
-            os.remove(path)
+        return (
+            jsonify({"status": "ready"}),
+            200,
+            {"ContentType": "application/json"},
+        )
+
     return "\t".join(ret)
 
 
