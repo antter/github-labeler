@@ -9,6 +9,8 @@ from string import punctuation
 import nltk
 from nltk.stem import PorterStemmer
 
+nltk.download("stopwords")
+
 load_dotenv(find_dotenv())
 
 use_ceph = True
