@@ -31,14 +31,16 @@ if use_ceph:
 
     response = s3.get_object(Bucket=s3_bucket, Key="github-labeler/wordlist.txt")
     txt = response.get("Body")
-    words = next(txt).split(b"\n")
+    words = []
+    for i in txt:
+        words += i.split(b"\n")
+
 
 else:
     with open("../../wordlist.txt", "rb") as f:
         words = f.read().split(b"\n")
 
 words = set([word.decode("utf-8") for word in words])
-
 ### preprocess functions defined below
 
 function_list = []
@@ -144,7 +146,9 @@ stopwds = set(stopwords.words("english"))
 def process(title, body):
     """Call this function when wishing to preprocess an issue."""
     listed_words = nltk.word_tokenize(
-        preprocess(title + " " + body if type(body) == str else title).lower()
+        preprocess(
+            title + " SEP " + body if type(body) == str else title + " SEP "
+        ).lower()
     )
     listed_words = [word for word in listed_words if not all_punc(word)]
     stemmed = [ps.stem(word) for word in listed_words if word not in stopwds]
