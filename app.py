@@ -27,7 +27,7 @@ threshold = 0.6
 name = os.getenv("REPO_NAME")
 
 if not os.path.isdir("models/saved_models"):
-    os.path.mkdir("models/saved_models")
+    os.mkdir("models/saved_models")
 
 if "/" in name:
     REPO = name
