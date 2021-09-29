@@ -10,6 +10,7 @@ import nltk
 from nltk.stem import PorterStemmer
 
 nltk.download("stopwords")
+nltk.download("punkt")
 
 load_dotenv(find_dotenv())
 
