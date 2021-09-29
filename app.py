@@ -80,13 +80,13 @@ with open("labellist.txt", "r") as h:
 def predict():
     """Take json data of title, body, created_by and returns a tab separated list of strings."""
     if request.method == "POST":
-    	data = request.get_json() or "{}"
-    	data = json.loads(data)
-    	title, body, creator = data["title"], data["body"], data["created_by"]
-    	if creator in bots:
-		return ""
-    	ret = []
-    	filename = {"ft": ".bin", "svm": ".joblib"}
+        data = request.get_json() or "{}"
+        data = json.loads(data)
+        title, body, creator = data["title"], data["body"], data["created_by"]
+        if creator in bots:
+            return ""
+        ret = []
+        filename = {"ft": ".bin", "svm": ".joblib"}
         if use_ceph:
             for lbl_type in labels:
                 lbl, mod = lbl_type.split("\t")
@@ -110,7 +110,6 @@ def predict():
                     if pred == 1:
                         ret.append(lbl)
                 os.remove(os.path.join("models", path))
-		
 
         else:
             for lbl_type in labels:
