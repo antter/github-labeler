@@ -24,6 +24,9 @@ python-dotenv = "*"
 Flask = "*"
 PyGithub = "*"
 nltk = "*"
+google-cloud-bigquery = "*"
+gensim = "*"
+langid = "*"
 
 [requires]
 python_version = "3.8"
