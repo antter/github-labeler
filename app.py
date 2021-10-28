@@ -21,7 +21,7 @@ def dummy_fun(x):
     return x
 
 
-use_ceph = True
+use_ceph = bool(int(os.getenv("USE_CEPH")))
 threshold = 0.6
 
 name = os.getenv("REPO_NAME")
