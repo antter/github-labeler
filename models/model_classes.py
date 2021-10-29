@@ -17,7 +17,7 @@ from preprocess import process  # noqa
 
 load_dotenv(find_dotenv())
 
-use_ceph = True
+use_ceph = bool(int(os.getenv("USE_CEPH")))
 
 if use_ceph:
     s3_endpoint_url = os.environ["OBJECT_STORAGE_ENDPOINT_URL"]
