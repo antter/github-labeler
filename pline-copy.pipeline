@@ -14,38 +14,23 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "src/data/issue_extraction.ipynb",
-            "runtime_image": "quay.io/atersaak/github-labeler:latest",
-            "env_vars": [
-              "OBJECT_STORAGE_ENDPOINT_URL=",
-              "AWS_ACCESS_KEY_ID=",
-              "AWS_SECRET_ACCESS_KEY=",
-              "OBJECT_STORAGE_BUCKET_NAME=",
-              "GITHUB_ACCESS_TOKEN=",
-              "REPO_NAME="
-            ],
+            "runtime_image": "continuumio/anaconda3:2020.07",
+            "env_vars": [],
             "include_subdirectories": false,
-            "invalidNodeError": "notebook does not exist",
+            "invalidNodeError": null,
             "outputs": [],
-            "dependencies": [],
+            "dependencies": [
+              "./.en"
+            ],
             "cpu": 1,
             "memory": 4,
             "gpu": 0,
             "ui_data": {
               "label": "issue_extraction.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 289,
-              "y_pos": 430.59375,
-              "description": "Notebook file",
-              "decorations": [
-                {
-                  "id": "error",
-                  "image": "data:image/svg+xml;utf8,%3Csvg%20focusable%3D%22false%22%20preserveAspectRatio%3D%22xMidYMid%20meet%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22%23d32f2f%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20aria-hidden%3D%22true%22%3E%0A%20%20%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2210%22%3E%3C%2Fcircle%3E%0A%20%20%3Ctitle%3EError%3C%2Ftitle%3E%0A%3C%2Fsvg%3E%0A",
-                  "outline": false,
-                  "position": "topLeft",
-                  "x_pos": 20,
-                  "y_pos": 3
-                }
-              ]
+              "x_pos": 90,
+              "y_pos": 185.59375,
+              "description": "Notebook file"
             }
           },
           "inputs": [
@@ -78,42 +63,24 @@
           ]
         },
         {
-          "id": "987f98d1-92ae-4979-8a73-d8231b3ad3aa",
+          "id": "63ece44b-b459-4cca-8d25-7ebfa7e2b331",
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "models/fastText_expirements.ipynb",
-            "runtime_image": "quay.io/atersaak/github-labeler:latest",
-            "env_vars": [
-              "OBJECT_STORAGE_ENDPOINT_URL=",
-              "AWS_ACCESS_KEY_ID=",
-              "AWS_SECRET_ACCESS_KEY=",
-              "OBJECT_STORAGE_BUCKET_NAME=",
-              "GITHUB_ACCESS_TOKEN=",
-              "REPO_NAME="
-            ],
-            "include_subdirectories": false,
-            "invalidNodeError": "notebook does not exist",
+            "filename": "notebooks/preprocess.ipynb",
+            "runtime_image": "continuumio/anaconda3:2020.07",
+            "env_vars": [],
+            "include_subdirectories": true,
+            "invalidNodeError": null,
             "outputs": [],
             "dependencies": [],
             "cpu": 1,
-            "memory": 4,
             "ui_data": {
-              "label": "fastText_expirements.ipynb",
+              "label": "preprocess.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 584,
-              "y_pos": 430,
-              "description": "Notebook file",
-              "decorations": [
-                {
-                  "id": "error",
-                  "image": "data:image/svg+xml;utf8,%3Csvg%20focusable%3D%22false%22%20preserveAspectRatio%3D%22xMidYMid%20meet%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22%23d32f2f%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20aria-hidden%3D%22true%22%3E%0A%20%20%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2210%22%3E%3C%2Fcircle%3E%0A%20%20%3Ctitle%3EError%3C%2Ftitle%3E%0A%3C%2Fsvg%3E%0A",
-                  "outline": false,
-                  "position": "topLeft",
-                  "x_pos": 20,
-                  "y_pos": 3
-                }
-              ]
+              "x_pos": 328,
+              "y_pos": 180,
+              "description": "Notebook file"
             }
           },
           "inputs": [
@@ -130,8 +97,70 @@
               },
               "links": [
                 {
-                  "id": "beeeae1b-ed76-497e-a391-c9153b7d6e3e",
+                  "id": "f6e3ca9e-9ea5-42c4-bf34-88f15d5ad886",
                   "node_id_ref": "2490c535-84bc-4640-b028-1b4c08c44a78",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "2b8c3aaa-04d0-4e7d-ba8b-9c4d924a6660",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "models/train_models.ipynb",
+            "runtime_image": "continuumio/anaconda3:2020.07",
+            "env_vars": [],
+            "include_subdirectories": false,
+            "outputs": [],
+            "dependencies": [
+              "./src/data/preprocess.py",
+              "./.env",
+              "./models/model_class.py"
+            ],
+            "invalidNodeError": null,
+            "cpu": 1,
+            "memory": 4,
+            "ui_data": {
+              "label": "train_models.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 598,
+              "y_pos": 180,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "4703009f-a062-49f5-a1e3-208ef65f6311",
+                  "node_id_ref": "63ece44b-b459-4cca-8d25-7ebfa7e2b331",
                   "port_id_ref": "outPort"
                 }
               ]
