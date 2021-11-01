@@ -3,9 +3,9 @@ Open source software repositories use issue boards to track current issues with 
 
 This project seeks an ML solution to automatically tag new issues, taking a slightly new direction than the previous work that has been done in this field. This project can be applied to any github repository or user that has a sufficient amount of tagged label data.
 
-- [Get Started](./docs/get-started.md)
-- [How to Contribute](./docs/how-to-contribute.md)
-- [Contents](./docs/contents.md)
+- [Get Started](./get-started.md)
+- [How to Contribute](./how-to-contribute.md)
+- [Contents](./contents.md)
 
 **Contact**
 This project is maintained as part of the AIOps team in Red Hat’s AI CoE as part of the Office of the CTO. More information can be found at https://www.operate-first.cloud/.
