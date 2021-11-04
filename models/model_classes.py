@@ -9,11 +9,12 @@ import os
 import boto3
 from dotenv import load_dotenv, find_dotenv
 import joblib
-
+from nltk.tokenize import word_tokenize
 
 sys.path.append("../src/data")  # noqa
 sys.path.append("./src/data")  # noqa
-from preprocess import process  # noqa
+from preprocess import process, preprocess  # noqa
+from w2v_preprocess import is_punc  # noqa
 
 load_dotenv(find_dotenv())
 
@@ -42,6 +43,30 @@ else:
     REPO = ""
 savename = USER if USER else REPO.replace("/", "-_-")
 
+# read in vocab_reduced.vec file
+
+if use_ceph:
+    response = s3.get_object(
+        Bucket=s3_bucket, Key=f"github-labeler/{savename}/vocab_reduced.vec"
+    )
+    with open("vocab_reduced.vec", "wb") as f:
+        for i in response["Body"]:
+            f.write(i)
+
+with open("vocab_reduced.vec") as f:
+    lines = f.readlines()
+vec_size = int(lines[0].split()[1])
+lines = lines[1:]
+words = set([line.split()[0] for line in lines])
+
+
+def in_set(word):
+    """Return either the word itself or the unknown token."""
+    if word in words:
+        return word
+    else:
+        return "_unknown_"
+
 
 class FtModel(FirstColFtClassifier):
     """This model is written over the skift column first classifier."""
@@ -49,24 +74,30 @@ class FtModel(FirstColFtClassifier):
     def __init__(self, path=""):
         """Initialize the model."""
         if not path:
-            super().__init__()
+            super().__init__(pretrainedVectors="vocab_reduced.vec", dim=vec_size)
         else:
             model = fasttext.load_model(path)
             setattr(self, "model", model)
 
     def preprocess(self, x):
         """Preprocess the text from a dataframe with processed column."""
-        ret = np.array(x.processed.apply(lambda x: " ".join(x))).reshape(-1, 1)
+        ret = x.title.fillna("") + " SEP " + x.body.fillna("")
+        ret = ret.apply(preprocess)
+        ret = ret.apply(lambda x: x.lower())
+        ret = ret.apply(word_tokenize).values
+        ret = [[word for word in issue if not is_punc(word)] for issue in ret]
+        ret = [[in_set(w) for w in issue] for issue in ret]
+        ret = [" ".join(issue) for issue in ret]
         return ret
 
     def fit(self, x, y):
         """Fit the model."""
-        input_ = self.preprocess(x)
+        input_ = np.array(self.preprocess(x)).reshape(-1, 1)
         super().fit(input_, y)
 
     def predict(self, x):
         """Predict the output."""
-        input_ = self.preprocess(x)
+        input_ = np.array(self.preprocess(x)).reshape(-1, 1)
         return super().predict(input_)
 
     def save(self, path):
