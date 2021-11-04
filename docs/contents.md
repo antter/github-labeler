@@ -1,6 +1,14 @@
 # Content
 
-You can familiarize yourself with how the project functions by watching the [video](https://www.youtube.com/watch?v=d_RFHXyGSVo) and/or reading the [blog](./blog.md).
+You can familiarize yourself with how the project functions by watching the video and/or reading the blog
+
+## Video
+
+You can find the video [here](https://www.youtube.com/watch?v=d_RFHXyGSVo).
+
+## Blog
+
+You can find the blog [here](./blog.md).
 
 ## Notebooks and Code
 
