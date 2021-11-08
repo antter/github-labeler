@@ -1,0 +1,12 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: jbook/intro
+chapters:
+- file: jbook/background
+- file: src/data/issue_extraction
+- file: notebooks/preprocess.ipynb
+- file: src/data/build_w2v_vocab.ipynb
+- file: notebooks/pretrain_w2v.ipynb
+- file: models/train_models.ipynb
