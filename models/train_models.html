@@ -1,0 +1,1657 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Training &#8212; Github Labeler Project</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Demo" href="../demo.html" />
+    <link rel="prev" title="Pretrain W2V" href="../notebooks/pretrain_w2v.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Github Labeler Project</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../docs/intro.html">
+   Github Labeler
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../docs/background.html">
+   Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../src/data/issue_extraction.html">
+   Issue Extraction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/preprocess.html">
+   SVM Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../src/data/build_w2v_vocab.html">
+   Build W2V Vocab
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/pretrain_w2v.html">
+   Pretrain W2V
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Model Training
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../demo.html">
+   Demo
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/models/train_models.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/aicoe-aiops/github-labeler"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/aicoe-aiops/github-labeler/issues/new?title=Issue%20on%20page%20%2Fmodels/train_models.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/aicoe-aiops/github-labeler/master?urlpath=tree/./models/train_models.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-data-and-environment-variables">
+   Load Data and Environment Variables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eda-and-customization">
+   EDA and Customization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#processing-and-training-functions">
+   Processing and Training Functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-validate-save">
+   Train, Validate, Save
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="model-training">
+<h1>Model Training<a class="headerlink" href="#model-training" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we train models to predict issue labels and test which models are effective. The basic flow of the notebook is such: one reads in the data, examines it and sets some parameters such as ignored labels, then trains both a SVM and fastText model as a binary classification task on each label. Negative samples are taken evenly throughout the other labels. Whichever labels’ models perform better than some specified benchmark are then trained on the whole dataset and saved to Ceph. A text file is saved containing which labels’ models are saved that a Flask app will then perform inference on.</p>
+<div class="section" id="load-data-and-environment-variables">
+<h2>Load Data and Environment Variables<a class="headerlink" href="#load-data-and-environment-variables" title="Permalink to this headline">¶</a></h2>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">dump</span>
+<span class="kn">from</span> <span class="nn">model_classes</span> <span class="kn">import</span> <span class="n">FtModel</span><span class="p">,</span> <span class="n">SVM</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../src/data&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">preprocess</span> <span class="kn">import</span> <span class="n">process</span>  <span class="c1"># noqa</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package stopwords to
+[nltk_data]     /home/atersaak/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package punkt to /home/atersaak/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load environment variables</span>
+<span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># whether to use ceph or store locally</span>
+
+<span class="n">use_ceph</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;USE_CEPH&#39;</span><span class="p">)))</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="n">s3_endpoint_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OBJECT_STORAGE_ENDPOINT_URL&quot;</span><span class="p">]</span>
+    <span class="n">s3_access_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;AWS_ACCESS_KEY_ID&quot;</span><span class="p">]</span>
+    <span class="n">s3_secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;AWS_SECRET_ACCESS_KEY&quot;</span><span class="p">]</span>
+    <span class="n">s3_bucket</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OBJECT_STORAGE_BUCKET_NAME&quot;</span><span class="p">]</span>
+
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span>
+        <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;s3&quot;</span><span class="p">,</span>
+        <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">s3_access_key</span><span class="p">,</span>
+        <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">s3_secret_key</span><span class="p">,</span>
+        <span class="n">endpoint_url</span><span class="o">=</span><span class="n">s3_endpoint_url</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;REPO_NAME&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+    <span class="n">REPO</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="n">USER</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">USER</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="n">REPO</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># repo data is saved as {org_name}-_-{repo_name}</span>
+<span class="c1"># orginization data is saved as {org_name}</span>
+
+<span class="n">savename</span> <span class="o">=</span> <span class="n">USER</span> <span class="k">if</span> <span class="n">USER</span> <span class="k">else</span> <span class="n">REPO</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-_-&quot;</span><span class="p">)</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;../data&quot;</span><span class="p">,</span> <span class="n">savename</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+<span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;github-labeler/data/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">s3_bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">issues_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Body&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">issues_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">issues_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>repo</th>
+      <th>title</th>
+      <th>body</th>
+      <th>created_at</th>
+      <th>created_by</th>
+      <th>num_labels</th>
+      <th>labels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>100</th>
+      <td>openshift/origin/601</td>
+      <td>openshift/origin</td>
+      <td>Newer versions of go-bindata include modtime i...</td>
+      <td>During the rebase I attempted to pull go-binda...</td>
+      <td>2014-12-27 03:16:28</td>
+      <td>smarterclayton</td>
+      <td>1</td>
+      <td>kind/bug</td>
+    </tr>
+    <tr>
+      <th>8804</th>
+      <td>openshift/origin/25020</td>
+      <td>openshift/origin</td>
+      <td>Unable to start minishift</td>
+      <td>I installed virtual box latest version and dow...</td>
+      <td>2020-05-24 14:14:36</td>
+      <td>rathohit311356</td>
+      <td>1</td>
+      <td>lifecycle/rotten</td>
+    </tr>
+    <tr>
+      <th>5238</th>
+      <td>openshift/origin/13606</td>
+      <td>openshift/origin</td>
+      <td>Ansible task failure (permission denied)</td>
+      <td>```\r\nTASK [openshift_sanitize_inventory : En...</td>
+      <td>2017-04-03 16:33:25</td>
+      <td>bparees</td>
+      <td>3</td>
+      <td>priority/P1\tcomponent/install\tkind/test-flake</td>
+    </tr>
+    <tr>
+      <th>4055</th>
+      <td>openshift/origin/10436</td>
+      <td>openshift/origin</td>
+      <td>add node,"type: NodePort" doesn't work, Pod on...</td>
+      <td>add a node:ansible-playbook playbooks/byo/open...</td>
+      <td>2016-08-16 07:40:45</td>
+      <td>lifei825</td>
+      <td>3</td>
+      <td>priority/P3\tcomponent/networking\tlifecycle/s...</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>openshift/origin/859</td>
+      <td>openshift/origin</td>
+      <td>Builder panics if Dockerfile missing</td>
+      <td>[`docker.go` line 143 &amp; 144](https://github.co...</td>
+      <td>2015-02-03 23:04:05</td>
+      <td>phemmer</td>
+      <td>1</td>
+      <td>kind/bug</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="eda-and-customization">
+<h2>EDA and Customization<a class="headerlink" href="#eda-and-customization" title="Permalink to this headline">¶</a></h2>
+<p>Here we examine the labels a bit. We can define any labels that are synonyms and define bots whose issues we don’t want to include</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># outputwith all labels more samples than &quot;cutoff&quot;, in order.</span>
+
+<span class="n">cutoff</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">label_lst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">([</span><span class="n">ls</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ls</span> <span class="ow">in</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">dropna</span><span class="p">()])</span>
+<span class="p">)</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">label_lst</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>priority/P2 3507
+kind/bug 1868
+lifecycle/rotten 1800
+priority/P3 1387
+priority/P1 1215
+kind/test-flake 1085
+component/cli 873
+kind/question 748
+area/usability 655
+component/build 648
+component/web 637
+area/tests 599
+component/apps 485
+component/kubernetes 391
+component/imageregistry 324
+component/networking 323
+lifecycle/stale 305
+component/auth 298
+sig/master 298
+area/techdebt 294
+component/routing 245
+component/restapi 208
+area/security 197
+priority/P0 197
+component/storage 187
+component/internal-tools 173
+component/install 169
+lifecycle/frozen 163
+sig/developer-experience 163
+kind/post-rebase 153
+component/composition 145
+component/image 135
+sig/security 125
+sig/networking 118
+area/documentation 114
+area/performance 101
+component/cluster-up 101
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define synonyms, first in set will be used name</span>
+
+<span class="n">synsets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;kind/bug&quot;</span><span class="p">,</span> <span class="s2">&quot;bug&quot;</span><span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># equate synonyms</span>
+
+<span class="k">for</span> <span class="n">syn</span> <span class="ow">in</span> <span class="n">synsets</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">equate_syns</span><span class="p">(</span><span class="n">lbl</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">syn</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">else</span> <span class="n">lbl</span>
+
+    <span class="k">def</span> <span class="nf">equate_list</span><span class="p">(</span><span class="n">lbllist</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">lbllist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">equate_syns</span><span class="p">(</span><span class="n">lbl</span><span class="p">)</span> <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">lbllist</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)]))</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lbllist</span>
+
+    <span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">equate_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># output histogram of number of labels</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">issues_df</span><span class="o">.</span><span class="n">num_labels</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">issues_df</span><span class="o">.</span><span class="n">num_labels</span><span class="p">)))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 6.0)
+</pre></div>
+</div>
+<img alt="../_images/train_models_14_1.png" src="../_images/train_models_14_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view most common issue creators</span>
+
+<span class="n">issues_df</span><span class="o">.</span><span class="n">created_by</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smarterclayton    767
+deads2k           374
+kargakis          361
+spadgett          349
+bparees           297
+liggitt           276
+stevekuznetsov    273
+mfojtik           256
+soltysh           139
+sosiouxme         108
+Name: created_by, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first find bots transparently tagged as such</span>
+
+
+<span class="k">def</span> <span class="nf">is_bot</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;[bot]&quot;</span>
+
+
+<span class="n">all_names</span> <span class="o">=</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">created_by</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="n">bots</span> <span class="o">=</span> <span class="n">all_names</span><span class="p">[[</span><span class="n">is_bot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_names</span><span class="p">]]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bots found:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bots</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bots found:
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose any additional bot accounts whose issues to not count</span>
+
+<span class="n">additional_bots</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sesheta&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter out issues created by bots &amp; their labels</span>
+
+<span class="n">bots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">bots</span><span class="p">,</span> <span class="n">additional_bots</span><span class="p">))</span>
+
+<span class="n">issues_df</span> <span class="o">=</span> <span class="n">issues_df</span><span class="p">[</span><span class="n">issues_df</span><span class="o">.</span><span class="n">created_by</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bots</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># most popular labels, nearly finalized</span>
+
+<span class="n">cutoff</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">final_labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">label_lst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">([</span><span class="n">ls</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ls</span> <span class="ow">in</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">dropna</span><span class="p">()])</span>
+<span class="p">)</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">label_lst</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">final_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>priority/P2 3507
+kind/bug 1868
+lifecycle/rotten 1800
+priority/P3 1387
+priority/P1 1215
+kind/test-flake 1085
+component/cli 873
+kind/question 748
+area/usability 655
+component/build 648
+component/web 637
+area/tests 599
+component/apps 485
+component/kubernetes 391
+component/imageregistry 324
+component/networking 323
+lifecycle/stale 305
+component/auth 298
+sig/master 298
+area/techdebt 294
+component/routing 245
+component/restapi 208
+area/security 197
+priority/P0 197
+component/storage 187
+component/internal-tools 173
+component/install 169
+lifecycle/frozen 163
+sig/developer-experience 163
+kind/post-rebase 153
+component/composition 145
+component/image 135
+sig/security 125
+sig/networking 118
+area/documentation 114
+area/performance 101
+component/cluster-up 101
+area/infrastructure 83
+component/logging 75
+sig/pod 69
+help wanted 67
+sig/storage 66
+component/metrics 65
+kind/feature 55
+component/containers 52
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we can choose some labels that will discard an issue entirely from the dataset (e.g. ‘bot’ label), and we can choose some labels which we do not want to train a model to predict.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose labels whose issues you don&#39;t want to include in the dset (for either positive or negative sampling)</span>
+
+<span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove those labels</span>
+
+<span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">final_labels</span><span class="p">:</span>
+        <span class="n">final_labels</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">lbl</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">inclusion</span><span class="p">(</span><span class="n">lbl_list</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">lbl_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">lbl</span> <span class="ow">in</span> <span class="n">lbl_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="n">not_containing</span> <span class="o">=</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">inclusion</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">issues_df</span> <span class="o">=</span> <span class="n">issues_df</span><span class="p">[</span><span class="n">not_containing</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose issues you do not wish to attempt to predict</span>
+
+<span class="n">dont_pred</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;priority/P2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lifecycle/frozen&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lifecycle/stale&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;priority/P3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;priority/P1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lifecycle/rotten&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;priority/P0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lifecycle/rotten&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">dp</span> <span class="ow">in</span> <span class="n">dont_pred</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dp</span> <span class="ow">in</span> <span class="n">final_labels</span><span class="p">:</span>
+        <span class="n">final_labels</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">continue</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># output histogram of number of relevant labels, finalized</span>
+
+<span class="n">set_dp</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">dont_pred</span><span class="p">)</span>
+
+<span class="n">num_rel_issues</span> <span class="o">=</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">set_dp</span><span class="p">))</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> <span class="k">else</span> <span class="mi">0</span>
+<span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">num_rel_issues</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">num_rel_issues</span><span class="p">)))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 6.0)
+</pre></div>
+</div>
+<img alt="../_images/train_models_24_1.png" src="../_images/train_models_24_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="processing-and-training-functions">
+<h2>Processing and Training Functions<a class="headerlink" href="#processing-and-training-functions" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># preprocess text</span>
+
+<span class="n">issues_df</span><span class="p">[</span><span class="s2">&quot;processed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">process</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># hacky way to make tfidf work on also tokenized text</span>
+
+
+<span class="k">def</span> <span class="nf">dummy_fun</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">doc</span>
+
+
+<span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span>
+    <span class="n">analyzer</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">dummy_fun</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="n">dummy_fun</span><span class="p">,</span> <span class="n">token_pattern</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+
+<span class="n">tfidf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">issues_df</span><span class="o">.</span><span class="n">processed</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">tfidf</span><span class="p">,</span> <span class="s1">&#39;tfidf.joblib&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span>
+        <span class="n">Bucket</span><span class="o">=</span><span class="n">s3_bucket</span><span class="p">,</span>
+        <span class="n">Key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;github-labeler/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">/tfidf.joblib&quot;</span><span class="p">,</span>
+        <span class="n">Filename</span><span class="o">=</span><span class="s2">&quot;tfidf.joblib&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the function below we have a method for even negative sampling amongst the other labels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_subdataset</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    pass in a label name and get back a dataframe of positive &amp; negative samples for the label</span>
+<span class="sd">    we avoid taking unlabelled data as negative samples</span>
+<span class="sd">    negative samples are distributed evenly amongst the other labels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">labelled</span> <span class="o">=</span> <span class="n">issues_df</span><span class="p">[</span><span class="o">~</span><span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+    <span class="n">final_labels_</span> <span class="o">=</span> <span class="n">final_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">final_labels_</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">pos_samples</span> <span class="o">=</span> <span class="n">labelled</span><span class="p">[</span><span class="n">labelled</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">))]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_samples</span><span class="p">)</span>
+    <span class="n">remaining</span> <span class="o">=</span> <span class="n">labelled</span><span class="p">[</span><span class="n">labelled</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">))]</span>
+    <span class="n">n_neg</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">per_label</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="nb">len</span><span class="p">(</span><span class="n">final_labels_</span><span class="p">)</span>
+    <span class="n">neg_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="c1"># evenly sample if we can</span>
+    <span class="c1"># if not enough samples for a label, throw them all in and increase the remaining amount we need per label</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">final_labels_</span><span class="p">)):</span>
+        <span class="n">neg_samples</span> <span class="o">=</span> <span class="n">remaining</span><span class="p">[</span><span class="n">remaining</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">))]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">neg_samples</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">per_label</span><span class="p">:</span>
+            <span class="n">neg_samples</span> <span class="o">=</span> <span class="n">neg_samples</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">per_label</span><span class="p">)</span>
+            <span class="n">n_neg</span> <span class="o">+=</span> <span class="n">per_label</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">n_neg</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">neg_samples</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">final_labels_</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">per_label</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">n_neg</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">final_labels_</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">remaining</span> <span class="o">=</span> <span class="n">remaining</span><span class="p">[</span>
+            <span class="n">remaining</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">lbl</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="p">]</span>
+        <span class="n">neg_ids</span> <span class="o">=</span> <span class="n">neg_ids</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">neg_samples</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+    <span class="c1"># fill in potential gap with unlabelled issues, if needed</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_samples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">neg_ids</span><span class="p">):</span>
+        <span class="n">unlabelled</span> <span class="o">=</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;num_labels == 0&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unlabelled</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_samples</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">neg_ids</span><span class="p">):</span>
+            <span class="n">neg_ids</span> <span class="o">=</span> <span class="n">neg_ids</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
+                <span class="nb">set</span><span class="p">(</span><span class="n">unlabelled</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pos_samples</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">neg_ids</span><span class="p">))</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">neg_ids</span> <span class="o">=</span> <span class="n">neg_ids</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">unlabelled</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+            <span class="n">pos_samples</span> <span class="o">=</span> <span class="n">pos_samples</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">neg_ids</span><span class="p">))</span>
+    <span class="n">final_neg_samples</span> <span class="o">=</span> <span class="n">issues_df</span><span class="p">[</span><span class="n">issues_df</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">neg_ids</span><span class="p">)]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">final_neg_samples</span><span class="p">,</span> <span class="n">pos_samples</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">final_neg_samples</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pos_samples</span><span class="p">))))</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict_label</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">model_class</span><span class="o">=</span><span class="n">FtModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    validates fastText model on the given label</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">model_class</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">preds</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="n">precision_</span> <span class="o">=</span> <span class="n">preds</span><span class="p">[</span><span class="n">preds</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">[</span><span class="n">preds</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">precision_</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">prec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">precision_</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prec</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">recall_</span> <span class="o">=</span> <span class="n">preds</span><span class="p">[</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">[</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">recall_</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recall_</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">acc</span><span class="p">,</span> <span class="n">prec</span><span class="p">,</span> <span class="n">rec</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="train-validate-save">
+<h2>Train, Validate, Save<a class="headerlink" href="#train-validate-save" title="Permalink to this headline">¶</a></h2>
+<p>Here we use something that is not necessarily k-fold cross validation. Our dataset is small, and randomized in the negative sampling process. What we do is run the trial multiple times and average the results. It is similar to k-fold cross validation but our dataset changes each time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels_dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">final_labels</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">get_subdataset</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="n">predict_label</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">model_class</span><span class="o">=</span><span class="n">SVM</span><span class="p">)</span>
+        <span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;svm&#39;</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="n">predict_label</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">model_class</span><span class="o">=</span><span class="n">FtModel</span><span class="p">)</span>
+        <span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;ft&#39;</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">])</span>
+    <span class="n">stats_df</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">stats_df</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+    <span class="n">labels_dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save and print the validation results</span>
+
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">labels_dfs</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">results_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model</th>
+      <th>accuracy</th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>n</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ft</td>
+      <td>0.622193</td>
+      <td>0.601722</td>
+      <td>0.761098</td>
+      <td>3736</td>
+      <td>kind/bug</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>svm</td>
+      <td>0.833641</td>
+      <td>0.800029</td>
+      <td>0.888497</td>
+      <td>2170</td>
+      <td>kind/test-flake</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ft</td>
+      <td>0.718286</td>
+      <td>0.752696</td>
+      <td>0.646347</td>
+      <td>1746</td>
+      <td>component/cli</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ft</td>
+      <td>0.702000</td>
+      <td>0.763575</td>
+      <td>0.593208</td>
+      <td>1496</td>
+      <td>kind/question</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ft</td>
+      <td>0.710687</td>
+      <td>0.725599</td>
+      <td>0.649740</td>
+      <td>1310</td>
+      <td>area/usability</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>svm</td>
+      <td>0.800769</td>
+      <td>0.860276</td>
+      <td>0.733450</td>
+      <td>1296</td>
+      <td>component/build</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>svm</td>
+      <td>0.867451</td>
+      <td>0.910947</td>
+      <td>0.820620</td>
+      <td>1274</td>
+      <td>component/web</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>svm</td>
+      <td>0.760833</td>
+      <td>0.800040</td>
+      <td>0.712725</td>
+      <td>1198</td>
+      <td>area/tests</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>svm</td>
+      <td>0.819588</td>
+      <td>0.860887</td>
+      <td>0.749045</td>
+      <td>970</td>
+      <td>component/apps</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>svm</td>
+      <td>0.638217</td>
+      <td>0.627660</td>
+      <td>0.659721</td>
+      <td>782</td>
+      <td>component/kubernetes</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>svm</td>
+      <td>0.709231</td>
+      <td>0.789570</td>
+      <td>0.558110</td>
+      <td>648</td>
+      <td>component/imageregistry</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>svm</td>
+      <td>0.700000</td>
+      <td>0.691172</td>
+      <td>0.674546</td>
+      <td>646</td>
+      <td>component/networking</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>svm</td>
+      <td>0.670000</td>
+      <td>0.727195</td>
+      <td>0.609676</td>
+      <td>596</td>
+      <td>component/auth</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>svm</td>
+      <td>0.605000</td>
+      <td>0.606221</td>
+      <td>0.538003</td>
+      <td>596</td>
+      <td>sig/master</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>svm</td>
+      <td>0.818644</td>
+      <td>0.781162</td>
+      <td>0.871778</td>
+      <td>588</td>
+      <td>area/techdebt</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>svm</td>
+      <td>0.732653</td>
+      <td>0.838641</td>
+      <td>0.572921</td>
+      <td>490</td>
+      <td>component/routing</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>svm</td>
+      <td>0.685714</td>
+      <td>0.725969</td>
+      <td>0.653703</td>
+      <td>416</td>
+      <td>component/restapi</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>svm</td>
+      <td>0.701266</td>
+      <td>0.763196</td>
+      <td>0.601252</td>
+      <td>394</td>
+      <td>area/security</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>svm</td>
+      <td>0.666667</td>
+      <td>0.752119</td>
+      <td>0.548678</td>
+      <td>374</td>
+      <td>component/storage</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>svm</td>
+      <td>0.760000</td>
+      <td>0.720948</td>
+      <td>0.836848</td>
+      <td>346</td>
+      <td>component/internal-tools</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>svm</td>
+      <td>0.720588</td>
+      <td>0.740470</td>
+      <td>0.632601</td>
+      <td>338</td>
+      <td>component/install</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>svm</td>
+      <td>0.730303</td>
+      <td>0.754377</td>
+      <td>0.677270</td>
+      <td>326</td>
+      <td>sig/developer-experience</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>svm</td>
+      <td>0.774194</td>
+      <td>0.833404</td>
+      <td>0.738610</td>
+      <td>306</td>
+      <td>kind/post-rebase</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>svm</td>
+      <td>0.741379</td>
+      <td>0.794342</td>
+      <td>0.665123</td>
+      <td>290</td>
+      <td>component/composition</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>svm</td>
+      <td>0.700000</td>
+      <td>0.740478</td>
+      <td>0.617171</td>
+      <td>270</td>
+      <td>component/image</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>svm</td>
+      <td>0.728000</td>
+      <td>0.754704</td>
+      <td>0.655914</td>
+      <td>250</td>
+      <td>sig/security</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>svm</td>
+      <td>0.712500</td>
+      <td>0.721408</td>
+      <td>0.671072</td>
+      <td>236</td>
+      <td>sig/networking</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>svm</td>
+      <td>0.821739</td>
+      <td>0.847409</td>
+      <td>0.789917</td>
+      <td>228</td>
+      <td>area/documentation</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>svm</td>
+      <td>0.809756</td>
+      <td>0.818056</td>
+      <td>0.766739</td>
+      <td>202</td>
+      <td>component/cluster-up</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>svm</td>
+      <td>0.746341</td>
+      <td>0.691635</td>
+      <td>0.831349</td>
+      <td>202</td>
+      <td>area/performance</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>svm</td>
+      <td>0.805882</td>
+      <td>0.804860</td>
+      <td>0.819375</td>
+      <td>166</td>
+      <td>area/infrastructure</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>svm</td>
+      <td>0.886667</td>
+      <td>0.917483</td>
+      <td>0.836987</td>
+      <td>150</td>
+      <td>component/logging</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>svm</td>
+      <td>0.757143</td>
+      <td>0.753053</td>
+      <td>0.694335</td>
+      <td>138</td>
+      <td>sig/pod</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>svm</td>
+      <td>0.622222</td>
+      <td>0.620669</td>
+      <td>0.706081</td>
+      <td>134</td>
+      <td>help wanted</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>svm</td>
+      <td>0.762963</td>
+      <td>0.837115</td>
+      <td>0.720224</td>
+      <td>132</td>
+      <td>sig/storage</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>svm</td>
+      <td>0.907692</td>
+      <td>1.000000</td>
+      <td>0.810816</td>
+      <td>130</td>
+      <td>component/metrics</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>svm</td>
+      <td>0.672727</td>
+      <td>0.720556</td>
+      <td>0.704274</td>
+      <td>110</td>
+      <td>kind/feature</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>svm</td>
+      <td>0.742857</td>
+      <td>0.782098</td>
+      <td>0.693636</td>
+      <td>104</td>
+      <td>component/containers</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can set conditions for saving the model below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set conditions for saving the model of a potential label</span>
+
+<span class="n">min_accuracy</span> <span class="o">=</span> <span class="mf">0.75</span>
+
+<span class="n">min_precision</span> <span class="o">=</span> <span class="mf">0.75</span>
+
+<span class="n">min_recall</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="c1"># add in the labels you want to have a model for anyway</span>
+
+<span class="n">addins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kind/bug&quot;</span><span class="p">]</span>
+
+<span class="n">condition1</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">accuracy</span> <span class="o">&gt;</span> <span class="n">min_accuracy</span>
+<span class="n">condition2</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">precision</span> <span class="o">&gt;</span> <span class="n">min_precision</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="n">condition1</span> <span class="o">&amp;</span> <span class="n">condition2</span>
+
+<span class="n">to_save</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">cond</span> <span class="o">|</span> <span class="n">results_df</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">addins</span><span class="p">)]</span>
+
+<span class="n">labels_to_save</span> <span class="o">=</span> <span class="n">to_save</span><span class="p">[[</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">to_save</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model</th>
+      <th>accuracy</th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>n</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ft</td>
+      <td>0.622193</td>
+      <td>0.601722</td>
+      <td>0.761098</td>
+      <td>3736</td>
+      <td>kind/bug</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>svm</td>
+      <td>0.833641</td>
+      <td>0.800029</td>
+      <td>0.888497</td>
+      <td>2170</td>
+      <td>kind/test-flake</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>svm</td>
+      <td>0.800769</td>
+      <td>0.860276</td>
+      <td>0.733450</td>
+      <td>1296</td>
+      <td>component/build</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>svm</td>
+      <td>0.867451</td>
+      <td>0.910947</td>
+      <td>0.820620</td>
+      <td>1274</td>
+      <td>component/web</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>svm</td>
+      <td>0.760833</td>
+      <td>0.800040</td>
+      <td>0.712725</td>
+      <td>1198</td>
+      <td>area/tests</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>svm</td>
+      <td>0.819588</td>
+      <td>0.860887</td>
+      <td>0.749045</td>
+      <td>970</td>
+      <td>component/apps</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>svm</td>
+      <td>0.818644</td>
+      <td>0.781162</td>
+      <td>0.871778</td>
+      <td>588</td>
+      <td>area/techdebt</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>svm</td>
+      <td>0.774194</td>
+      <td>0.833404</td>
+      <td>0.738610</td>
+      <td>306</td>
+      <td>kind/post-rebase</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>svm</td>
+      <td>0.821739</td>
+      <td>0.847409</td>
+      <td>0.789917</td>
+      <td>228</td>
+      <td>area/documentation</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>svm</td>
+      <td>0.809756</td>
+      <td>0.818056</td>
+      <td>0.766739</td>
+      <td>202</td>
+      <td>component/cluster-up</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>svm</td>
+      <td>0.805882</td>
+      <td>0.804860</td>
+      <td>0.819375</td>
+      <td>166</td>
+      <td>area/infrastructure</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>svm</td>
+      <td>0.886667</td>
+      <td>0.917483</td>
+      <td>0.836987</td>
+      <td>150</td>
+      <td>component/logging</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>svm</td>
+      <td>0.757143</td>
+      <td>0.753053</td>
+      <td>0.694335</td>
+      <td>138</td>
+      <td>sig/pod</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>svm</td>
+      <td>0.762963</td>
+      <td>0.837115</td>
+      <td>0.720224</td>
+      <td>132</td>
+      <td>sig/storage</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>svm</td>
+      <td>0.907692</td>
+      <td>1.000000</td>
+      <td>0.810816</td>
+      <td>130</td>
+      <td>component/metrics</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>For each label we want to save, we train the model again before saving but on the entire set of positive samples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;./saved_models&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;./saved_models&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./saved_models/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./saved_models/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">model_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;svm&quot;</span><span class="p">:</span> <span class="n">SVM</span><span class="p">,</span> <span class="s2">&quot;ft&quot;</span><span class="p">:</span> <span class="n">FtModel</span><span class="p">}</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">labels_to_save</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">get_subdataset</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model_dic</span><span class="p">[</span><span class="n">mod</span><span class="p">]()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">lbl_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;saved_models&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">))</span>
+        <span class="n">lbl_path</span> <span class="o">+=</span> <span class="s2">&quot;.bin&quot;</span> <span class="k">if</span> <span class="n">mod</span> <span class="o">==</span> <span class="s2">&quot;ft&quot;</span> <span class="k">else</span> <span class="s2">&quot;.joblib&quot;</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">lbl_path</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;github-labeler/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">lbl_path</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">s3</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">s3_bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">Filename</span><span class="o">=</span><span class="n">lbl_path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">lbl_path</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels_to_save</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">get_subdataset</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model_dic</span><span class="p">[</span><span class="n">model</span><span class="p">]()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">lbl_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;saved_models&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">))</span>
+        <span class="n">lbl_path</span> <span class="o">+=</span> <span class="s2">&quot;.bin&quot;</span> <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;ft&quot;</span> <span class="k">else</span> <span class="s2">&quot;.joblib&quot;</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">lbl_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save information of who to ignore (so the app knows not to tag these issues)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;botlist.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bots</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># save label names</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;labellist.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">labels_to_save</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">model</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span>
+        <span class="n">Bucket</span><span class="o">=</span><span class="n">s3_bucket</span><span class="p">,</span>
+        <span class="n">Key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;github-labeler/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">/botlist.txt&quot;</span><span class="p">,</span>
+        <span class="n">Filename</span><span class="o">=</span><span class="s2">&quot;botlist.txt&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span>
+        <span class="n">Bucket</span><span class="o">=</span><span class="n">s3_bucket</span><span class="p">,</span>
+        <span class="n">Key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;github-labeler/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">/labellist.txt&quot;</span><span class="p">,</span>
+        <span class="n">Filename</span><span class="o">=</span><span class="s2">&quot;labellist.txt&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./models"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../notebooks/pretrain_w2v.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Pretrain W2V</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../demo.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Demo</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Anthony Ter-Saakov and the AI-COE at Red Hat<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

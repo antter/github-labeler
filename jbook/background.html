@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background &#8212; Github Labeler Project</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Issue Extraction" href="../src/data/issue_extraction.html" />
+    <link rel="prev" title="Github Labeler" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Github Labeler Project</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Github Labeler
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../src/data/issue_extraction.html">
+   Issue Extraction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/preprocess.html">
+   SVM Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../src/data/build_w2v_vocab.html">
+   Build W2V Vocab
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/pretrain_w2v.html">
+   Pretrain W2V
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../models/train_models.html">
+   Model Training
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/jbook/background.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/aicoe-aiops/github-labeler"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/aicoe-aiops/github-labeler/issues/new?title=Issue%20on%20page%20%2Fjbook/background.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#organization-of-issue-tracking-systems">
+   Organization of Issue Tracking Systems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#previous-work">
+   Previous Work
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#our-method">
+   Our Method
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="background">
+<h1>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="organization-of-issue-tracking-systems">
+<h2>Organization of Issue Tracking Systems<a class="headerlink" href="#organization-of-issue-tracking-systems" title="Permalink to this headline">¶</a></h2>
+<p>Here’s what a really pretty
+open source repository looks like.</p>
+<p><img alt="slide1" src="../_images/01.jpg" /></p>
+<p>As you can see, every
+issue is labeled in some way.
+If you’re a developer and
+you want to work on the demo,
+you could just click on <code class="docutils literal notranslate"><span class="pre">kind/demo</span></code> and
+see what issues are associated with the
+demo. If the demo is
+important to fix before next week, your issues are organized so you
+could easily find and fix your specific issues with the demo.</p>
+<p>But what usually happens in open
+source repositories is this:</p>
+<p><img alt="slide2" src="../_images/02.jpg" /></p>
+<p>Since it’s just regular people
+contributing they will not tag the issues, either because they
+don’t really know which tag is the proper tag to use, or because they
+just don’t feel like it.</p>
+<p>The goal of our project is to alleviate this problem by creating an automatic issue labeler that will tag issues using AI instead of expecting random contibutors to do it themselves.</p>
+</div>
+<div class="section" id="previous-work">
+<h2>Previous Work<a class="headerlink" href="#previous-work" title="Permalink to this headline">¶</a></h2>
+<p>There’s been a
+lot of work in this direction.</p>
+<p><img alt="slide3" src="../_images/03.jpg" /></p>
+<p>In that <a class="reference external" href="https://arxiv.org/abs/2003.05357">paper</a> shown on the right, the authors basically conducted a survey of the field, tried out some new methods, and talked about the accuracy of user-tagged labels as well. They tried all sorts of basic NLP problems, such as tf-idf, SVMs, and other acronyms. They found that SVMs work well, but a newer word vector model known as fastText actually achieved the best results on their datasets. SVMs and fastText will make up the basis of our approach, which we will get into later.</p>
+<p><img alt="slide4" src="../_images/04.jpg" /></p>
+<p>However, there was a major issue in the previous work. Namely, it only classified three labels: bug, feature, and question. In reality, for any given open source repo, there will be a much longer list of labels, many of which are likely more useful than simply bug, feature, or question.</p>
+<p>The reason that the previous work in this field only worked on labelling bug, feature, question is that their approach was different than what we want to build for our purposes. They wanted to make a generalizable model that could work on any github repository without needing to be trained again every time. Almost every repository contains the issue tags bug, feature, and question, and so they had plenty of consistent data to work with to make a generalizable model.</p>
+<p>We wanted our approach to be different. Instead of creating a single, generalizable model, we wanted to create personalized models specific to the repositories they would be trained on. We wanted it to be possible to predict more than three labels.</p>
+</div>
+<div class="section" id="our-method">
+<h2>Our Method<a class="headerlink" href="#our-method" title="Permalink to this headline">¶</a></h2>
+<p><img alt="slide5" src="../_images/05.jpg" /></p>
+<p>The obvious drawback to our method is that we would have way less data to work with, only individual repos instead of all issues. So while their method is generalizable and more accurate for the labels they can predict, we hope our method will be more useful to open source repository managers.</p>
+<p>We will now discuss our model choice. We use a mixture of SVM’s and pretrained fastText models.</p>
+<p><img alt="slide6" src="../_images/06.jpg" /></p>
+<p>fastText is a word vector model, meaning every word in the model’s vocabulary has an n-dimensional vector associated with it. With proper training, words that are similar to one another would have vectors that are close to each other in n-dimensional space. When training a fastText classifier, the model uses stochastic gradient descent to find a linear layer that best fits the dataset. One of fastText’s main benefits is that it can be pre-trained on a larger dataset, which we will use. The model can read wikipedia, for example, and get a good starting alignment of word vectors. Since fastText is a powerful model that can have a very large vocabulary and large vector space corresponding to it, it requires a lot of training data, something we do not always have.</p>
+<p>This is where SVMs come in. They use a more classical statistical learning algorithm and can get very good results on small datasets. The main difference is that fastText can understand some of the nuances of the English language by knowing synonyms and related parts of speech, while SVMs are good at identifying keywords that come up that can give the label away.</p>
+<p>How are two models used? First, it is important to discuss binary classification. For each label in our dataset, we will have a separate model. That is, if we had 10 labels, we would want 10 models that can output <code class="docutils literal notranslate"><span class="pre">YES</span></code> or <code class="docutils literal notranslate"><span class="pre">NO</span></code>. To get the predicted labels for an issue, we run the issue through the 10 models and return the labels which had a <code class="docutils literal notranslate"><span class="pre">YES</span></code> label outputted. We do this to solve the problem of certain labels dominating the dataset, and the problem of being able to apply multiple tags to one issue.</p>
+<p><img alt="slide7" src="../_images/07.jpg" /></p>
+<p>For each tag we create the label dataset, by taking the issues that are labelled with that tag and randomly selecting issues that don’t contain the tag. We then train both fastText and an SVM on that dataset and see which one performs better. We save the model that has better results.</p>
+<p>Now we can go through the actual code to see how it works.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./jbook"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="intro.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Github Labeler</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../src/data/issue_extraction.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Issue Extraction</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Anthony Ter-Saakov and the AI-COE at Red Hat<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; Github Labeler Project</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Github Labeler Project</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Github Labeler
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="background.html">
+   Background
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../src/data/issue_extraction.html">
+   Issue Extraction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/preprocess.html">
+   SVM Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../src/data/build_w2v_vocab.html">
+   Build W2V Vocab
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/pretrain_w2v.html">
+   Pretrain W2V
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../models/train_models.html">
+   Model Training
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../demo.html">
+   Demo
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/docs/blog.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/aicoe-aiops/github-labeler"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/aicoe-aiops/github-labeler/issues/new?title=Issue%20on%20page%20%2Fdocs/blog.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <p><strong>Github Issue Labelling</strong></p>
+<p><em>Author(s)</em>: Anthony Ter-Saakov</p>
+<p><em>Date Created</em>: 10/28/2021</p>
+<p><em>Date Updated</em>: 10/28/2021</p>
+<p><em>Tags</em>: word embedding, NLP, github, issue tracking, text preprocessing</p>
+<p><strong>Abstract</strong></p>
+<p>Issue labels are a valuable resource in open-source issue-tracking systems. Engineers who specialize or are focused in a specific area use labels to filter through issues that are important to them. Labels also improve organization and can give code owners an idea of the direction their project is moving in. However, since anyone can create an issue in open-source, new issues commonly go unlabelled. We wish to remedy this problem by creating an automatic issue tagging model. There has been a lot of previous work in this direction that we build on laterally.</p>
+<p><strong>Introduction</strong></p>
+<p>When researching this project, we found a 40-page <a class="reference external" href="https://arxiv.org/abs/2003.05357">paper</a> about the automated prediction of tagging issues in issue tracking systems. It effectively served as a survey of the field. The standard method went as such: collect a large dataset of labelled issues from github, and train a model to predict whether the issues are bugs, feature requests, or questions. This is similar to how a general machine learning problem is tackled. Collect a large dataset, and do with it what you can. There are clear drawbacks to this method, namely the challenges of applying multiple tags and applying tags that aren’t bug, feature, or question. The reason that the previous work only labelled those three tags was because they wanted to use a large dataset; they sacrificed personalization for accuracy. Only the top three tags were used because those are the only tags that apply to every repo and are likely used in the same way across repos, and they had to remove the other labels due to class imbalance. To ensure that the amount of data points used per class is equal, they would simply discard data points from the “bug” and “feature” labels to match the number of “question” data points. This left them with plenty of good data to train well-functioning models on. In the survey, many of the standard NLP text processing techniques were used, with SVMs being the best performer out of the “classical” models, and fastText being the newcomer that outperformed all of the classical models. This highly motivated the techniques used in the github-labeler project.</p>
+<p>One of the overarching goals of our github labeler was to make it work on smaller, specific issue datasets such as <a class="reference external" href="https://github.com/openshift/origin/issues">openshift/origin</a>. A model working solely for this purpose should be able to predict more than just three labels, and it must be able to predict multiple labels for one issue. The methods from the previous work done in this field were not suitable for either. In order to solve the issue of class imbalance and multiple classification, we decided to make the problem into a multiple binary classification problem, i.e. creating a separate YES or NO model for each label. Running an issue through each model will give a list of YES’s that we use to tag the issue. While we are now able to create a model for each issue, we can give no guarantee that the models will be any good, since some of the tags may have very little data points and be difficult for a model to predict. We used two different models: <a class="reference external" href="https://en.wikipedia.org/wiki/FastText">fastText</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Support-vector_machine">support vector machine</a> classifiers. For each label, we train both models and apply k-fold validation and save the model that performs better. We will discuss the effectiveness and drawbacks of both of these models.</p>
+<p><strong>Data Collection</strong></p>
+<p>In order to download data we created a notebook to download all of the issue data of any repo or user using the github API. We extracted the openshift/origin issues for experimenting with different methods, which proved to be a sizable dataset of github issue data. There are many labels with several hundred data points, and the most popular label, kind/bug, has over 3000 data points. One of the trickiest parts of performing NLP methods on github issue datasets is the combination of code and English language (the model only supports English). Due to this, some heavy preprocessing functions were used and a different vocabulary was built for the two different models. In preprocessing, the large code blocks were entirely removed and replaced by code_block. The same happened for inline code which was replaced by code_inline. By the end, most of the messiness was dealt with but there was still a lot of noise which was dealt with separately for each classifier.</p>
+<p><strong>Models</strong></p>
+<p>First we start with describing the support vector machine. A staple of data scientists, it is consistently one of the most effective classifiers. The way the SVM was used in this case was fairly standard. The data first runs through a preprocessing notebook, where all of the issues in the dataset are preprocessed, split into individual words, the words are stemmed, and the counts of the words are calculated. We set a cutoff so only the words that appear in the top 80% of all words are added into the vocabulary. This effectively discards any words that are mentioned so rarely that they are nothing but noise to an SVM model. This vocabulary is then saved and each issue is transformed into a <a class="reference external" href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf vector</a> before being passed into a binary SVM classifier. This model works quite well, and outperforms fastText on many labels. Although fastText is a more “powerful” model, SVM is simpler and works better when the number of data points is low, which happens to be more common in our usage. If a handful of specific words makes it likely for the issue to be labelled with a certain tag, SVM will pick it up.</p>
+<p>However, if understanding the category of the issue requires some nuance and basic english comprehension such as synonyms and sentence structure, the SVM is not as powerful. This is where fastText usually outperforms the SVM model. fastText is a <a class="reference external" href="https://en.wikipedia.org/wiki/Word_embedding">word embedding</a> system that transforms every word into an <em>n</em>-dimensional vector. A github issue then becomes nothing but a list of vectors. The fastText classifier algorithm works by <a class="reference external" href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">SGD</a> using the word embeddings and a hidden layer. In a good word embedding system, words with similar meanings such as “bug”, “issue”, and “error” have their corresponding vectors close together in the <em>n</em>-dimensional space. Thus, while an SVM sees bug and issue as two totally different words, a well-trained fastText will know these words are similar. Since each word is now represented as an <em>n</em>-dimensional vector rather than a single dimension in a vector, fastText has more complexity and this is why it needs more data points to perform well (and SGD also wants a lot of data!).</p>
+<p><strong>Pre-training</strong></p>
+<p>Another advantage of fastText is that it allows for <em>pre-training</em>. This means that you can train a fastText model on other data before applying it to the classification problem, and this is exactly what we do to improve performance. We download a heavyweight fastText model that has over a million words in 300 dimensions, pre-trained on wikipedia and the news. We do some processing to exclude most of these words, then perform a <a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA reduction</a> to lower the dimensionality to around 170. This is important because we want to simplify the ultra-complex, powerful, model before passing it to our low-data classification problem. In order to include a github issue-relevant vocabulary, we rely on data from all public issues on github to pre-train our models. To extract this data we use <a class="reference external" href="https://www.gharchive.org/">GHArchive</a>. We extract issue data over 50 days, preprocess it, and perform a word count similar to the SVM preprocessing. We keep the words that make up the top 95% of all words used. We add the newly found words from github into the fastText word vectors we downloaded and processed. Then, we set up a model for unsupervised training on two years of github issues. Unsupervised training works by predicting the words surrounding other words to generate meaningful vector representations. The longer the model trains, the better the vector representation becomes. This is the pre-trained model that we can then pass on to our classification problem. The high level idea with pre-training is that we can use a lot of data to help the model “learn” English and a little github issue lingo, then the task of predicting labels off a small number of data points becomes much easier.</p>
+<p><strong>Conclusion</strong></p>
+<p>Applying our methods to the openshift/origin repo, we get fairly good results. There are many labels which we can make a binary prediction for with 80% accuracy or better. Some of these labels have several hundred examples in the openshift issue board, while some have under 100. The SVM model almost always outperformed the fastText model, and no fastText model was able to achieve at least 80% accuracy. At the time of writing this, we find that our pre-training methods do not always improve fastText performance, it is not currently implemented in the main pipeline because of this.
+The github labeler project is an open source repository that welcomes all contributors and can be found at <a class="reference external" href="https://github.com/aicoe-aiops/github-labeler">https://github.com/aicoe-aiops/github-labeler</a>. Any questions or concerns can be posted on the issue board or directed to <a class="reference external" href="mailto:atersaak&#37;&#52;&#48;redhat&#46;com">atersaak<span>&#64;</span>redhat<span>&#46;</span>com</a>. Thanks for reading!</p>
+<p><strong>References</strong></p>
+<p>[1] <a class="reference external" href="https://arxiv.org/abs/2003.05357">https://arxiv.org/abs/2003.05357</a></p>
+<p>[2] <a class="reference external" href="https://fasttext.cc">https://fasttext.cc</a></p>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Anthony Ter-Saakov and the AI-COE at Red Hat<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

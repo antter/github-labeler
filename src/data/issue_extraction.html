@@ -1,0 +1,767 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Issue Extraction &#8212; Github Labeler Project</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SVM Preprocessing" href="../../notebooks/preprocess.html" />
+    <link rel="prev" title="Background" href="../../docs/background.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Github Labeler Project</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../docs/intro.html">
+   Github Labeler
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../docs/background.html">
+   Background
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Issue Extraction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/preprocess.html">
+   SVM Preprocessing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="build_w2v_vocab.html">
+   Build W2V Vocab
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/pretrain_w2v.html">
+   Pretrain W2V
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../models/train_models.html">
+   Model Training
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../demo.html">
+   Demo
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/src/data/issue_extraction.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/aicoe-aiops/github-labeler"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/aicoe-aiops/github-labeler/issues/new?title=Issue%20on%20page%20%2Fsrc/data/issue_extraction.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/aicoe-aiops/github-labeler/master?urlpath=tree/./src/data/issue_extraction.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prepare-environment-variables">
+   Prepare Environment Variables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#receive-new-data">
+   Receive New Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eda-and-saving">
+   EDA and Saving
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="issue-extraction">
+<h1>Issue Extraction<a class="headerlink" href="#issue-extraction" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook the github API is used with a github access token in order to download github issue data. There is functionality to wait when rate limits are reached, and already existing data can be appended to.</p>
+<div class="section" id="prepare-environment-variables">
+<h2>Prepare Environment Variables<a class="headerlink" href="#prepare-environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>We import our packages and define our savename. The “REPO_NAME” environment variable should be either a github user/organization or a repo in the form {user}/{repo}. The savename will be used throughtout the issue labeler code for ceph and local storage.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">github</span> <span class="kn">import</span> <span class="n">Github</span><span class="p">,</span> <span class="n">RateLimitExceededException</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">Github</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;GITHUB_ACCESS_TOKEN&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;REPO_NAME&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+    <span class="n">REPO</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="n">USER</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">USER</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="n">REPO</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># whether to use ceph or store locally</span>
+
+<span class="n">use_ceph</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;USE_CEPH&#39;</span><span class="p">)))</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="n">s3_endpoint_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OBJECT_STORAGE_ENDPOINT_URL&quot;</span><span class="p">]</span>
+    <span class="n">s3_access_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;AWS_ACCESS_KEY_ID&quot;</span><span class="p">]</span>
+    <span class="n">s3_secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;AWS_SECRET_ACCESS_KEY&quot;</span><span class="p">]</span>
+    <span class="n">s3_bucket</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OBJECT_STORAGE_BUCKET_NAME&quot;</span><span class="p">]</span>
+
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span>
+        <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;s3&quot;</span><span class="p">,</span>
+        <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">s3_access_key</span><span class="p">,</span>
+        <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">s3_secret_key</span><span class="p">,</span>
+        <span class="n">endpoint_url</span><span class="o">=</span><span class="n">s3_endpoint_url</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add all user&#39;s repos to list, or create list of one</span>
+<span class="n">repos_</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">if</span> <span class="n">USER</span><span class="p">:</span>
+    <span class="n">org</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">USER</span><span class="p">)</span>
+    <span class="n">repos</span> <span class="o">=</span> <span class="n">org</span><span class="o">.</span><span class="n">get_repos</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">repo</span> <span class="ow">in</span> <span class="n">repos</span><span class="p">:</span>
+        <span class="n">repos_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">to_add</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_repo</span><span class="p">(</span><span class="n">REPO</span><span class="p">)</span>
+    <span class="n">repos_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_add</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="receive-new-data">
+<h2>Receive New Data<a class="headerlink" href="#receive-new-data" title="Permalink to this headline">¶</a></h2>
+<p>Here we check ceph or local storage if the data for the repo exists. If it does, we load it in. We then use the github access token and pygithub to scrape all data and append it to the current existing dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load dataframe if exists</span>
+
+<span class="n">savename</span> <span class="o">=</span> <span class="n">USER</span> <span class="k">if</span> <span class="n">USER</span> <span class="k">else</span> <span class="n">REPO</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-_-&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;github-labeler/data/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">s3_bucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">existing_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Body&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">s3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NoSuchKey</span><span class="p">:</span>
+        <span class="n">existing_df</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;../../data/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">):</span>
+        <span class="n">existing_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;../../data/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">existing_df</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_issues_for_repo</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">last_issue</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    takes in a pygithub repo object and returns the list of pygithub issue objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">issues_left</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">max_date</span> <span class="o">=</span> <span class="n">last_issue</span> <span class="k">if</span> <span class="n">last_issue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">min</span>
+    <span class="k">while</span> <span class="n">issues_left</span><span class="p">:</span>
+        <span class="n">issues_left</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_issues</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;asc&quot;</span><span class="p">,</span> <span class="n">since</span><span class="o">=</span><span class="n">max_date</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">issue</span><span class="o">.</span><span class="n">created_at</span> <span class="o">&lt;=</span> <span class="n">max_date</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">max_date</span> <span class="o">=</span> <span class="n">issue</span><span class="o">.</span><span class="n">created_at</span>
+                <span class="k">if</span> <span class="n">issue</span><span class="o">.</span><span class="n">pull_request</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">issue</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">RateLimitExceededException</span><span class="p">:</span>
+            <span class="c1"># rate limit exception</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">),</span> <span class="s2">&quot;issues added for&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">repo</span><span class="o">.</span><span class="n">full_name</span><span class="p">})</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SLEEPING NOW FOR AN HOUR&quot;</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">61</span><span class="p">)</span>
+            <span class="n">issues_left</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">issues</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add in all issues</span>
+<span class="n">all_issues</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">if</span> <span class="n">existing_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">last_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">existing_df</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">last_date</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="n">USER</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;getting issues for repos&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">repo</span> <span class="ow">in</span> <span class="n">repos_</span><span class="p">:</span>
+        <span class="n">all_issues</span><span class="p">[</span><span class="n">repo</span><span class="o">.</span><span class="n">full_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_issues_for_repo</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">last_date</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">repo</span> <span class="o">=</span> <span class="n">repos_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">all_issues</span><span class="p">[</span><span class="n">repo</span><span class="o">.</span><span class="n">full_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_issues_for_repo</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">last_date</span><span class="p">)</span>
+
+<span class="n">total_issues</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">all_issues</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">total_issues</span><span class="p">,</span> <span class="s2">&quot;total issues&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2 total issues
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a dataframe for issues</span>
+
+<span class="n">issue_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">repo</span><span class="p">,</span> <span class="n">issues</span> <span class="ow">in</span> <span class="n">all_issues</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">issues</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">lbl</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">issue</span><span class="o">.</span><span class="n">labels</span><span class="p">]</span>
+        <span class="n">label_names</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="k">if</span> <span class="n">labels</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">id_</span> <span class="o">=</span> <span class="n">repo</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">issue</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">id_</span><span class="p">,</span>
+            <span class="n">repo</span><span class="p">,</span>
+            <span class="n">issue</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">issue</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+            <span class="n">issue</span><span class="o">.</span><span class="n">created_at</span><span class="p">,</span>
+            <span class="n">issue</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">login</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span>
+            <span class="n">label_names</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">issue_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;repo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;body&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;created_at&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;created_by&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;num_labels&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;labels&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">if</span> <span class="n">existing_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">issues_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">existing_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">issue_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)])</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">issues_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">issue_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="eda-and-saving">
+<h2>EDA and Saving<a class="headerlink" href="#eda-and-saving" title="Permalink to this headline">¶</a></h2>
+<p>We do a little EDA on the issues and their labels and creators, then save the dataframe to a csv. We save it under the name {savename}.csv.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show issues dataframe</span>
+<span class="n">issues_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>repo</th>
+      <th>title</th>
+      <th>body</th>
+      <th>created_at</th>
+      <th>created_by</th>
+      <th>num_labels</th>
+      <th>labels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>8145</th>
+      <td>openshift/origin/17781</td>
+      <td>openshift/origin</td>
+      <td>TestProjectRequestError</td>
+      <td>https://openshift-gce-devel.appspot.com/build/...</td>
+      <td>2017-12-14 13:22:07</td>
+      <td>kargakis</td>
+      <td>3</td>
+      <td>priority/P2\tarea/tests\tsig/master</td>
+    </tr>
+    <tr>
+      <th>4337</th>
+      <td>openshift/origin/11161</td>
+      <td>openshift/origin</td>
+      <td>Make verify fails with "Swagger spec out of date"</td>
+      <td>Jenkins (and Travis) tests keep failing with `...</td>
+      <td>2016-09-29 17:08:53</td>
+      <td>juanvallejo</td>
+      <td>1</td>
+      <td>kind/test-flake</td>
+    </tr>
+    <tr>
+      <th>5693</th>
+      <td>openshift/origin/11859</td>
+      <td>openshift/origin</td>
+      <td>oc cluster up fails to install metrics</td>
+      <td>There has been a change in origin metrics wher...</td>
+      <td>2016-11-09 21:55:02</td>
+      <td>mwringe</td>
+      <td>4</td>
+      <td>area/usability\tpriority/P2\tcomponent/composi...</td>
+    </tr>
+    <tr>
+      <th>3683</th>
+      <td>openshift/origin/9434</td>
+      <td>openshift/origin</td>
+      <td>Update custom errors for deployment controller...</td>
+      <td>@deads2k @mfojtik \n</td>
+      <td>2016-06-20 12:45:10</td>
+      <td>kargakis</td>
+      <td>4</td>
+      <td>priority/P3\tcomponent/apps\thelp wanted\tlife...</td>
+    </tr>
+    <tr>
+      <th>4288</th>
+      <td>openshift/origin/11042</td>
+      <td>openshift/origin</td>
+      <td>Source pod ip is not preserved when contacting...</td>
+      <td>A kube e2e test was added to validate preserva...</td>
+      <td>2016-09-21 15:08:47</td>
+      <td>marun</td>
+      <td>4</td>
+      <td>priority/P3\tcomponent/networking\tarea/techde...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view most common labels</span>
+
+<span class="n">label_lst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+    <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">([</span><span class="n">ls</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ls</span> <span class="ow">in</span> <span class="n">issues_df</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">dropna</span><span class="p">()])</span>
+<span class="p">)</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">label_lst</span><span class="p">)</span>
+
+<span class="n">counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;question&#39;, 1178),
+ (&#39;needs triage&#39;, 987),
+ (&#39;stale&#39;, 463),
+ (&#39;bug&#39;, 401),
+ (&#39;enhancement&#39;, 167),
+ (&#39;help wanted&#39;, 146),
+ (&#39;documentation&#39;, 85),
+ (&#39;speech-to-text&#39;, 42),
+ (&#39;windows&#39;, 26),
+ (&#39;unable to repro&#39;, 26),
+ (&#39;wav2vec&#39;, 9),
+ (&#39;BART/mBART&#39;, 4),
+ (&#39;cleanup&#39;, 3),
+ (&#39;0.10.2&#39;, 2),
+ (&#39;M2M-100&#39;, 2),
+ (&#39;LayerDrop&#39;, 1),
+ (&#39;python3.9&#39;, 1),
+ (&#39;translation&#39;, 1),
+ (&#39;paraphraser&#39;, 1),
+ (&#39;DynamicConv/LightConv&#39;, 1)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view most common issue creators</span>
+
+<span class="n">issues_df</span><span class="o">.</span><span class="n">created_by</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shamanez          31
+erip              27
+gaopengcuhk       20
+ajesujoba         20
+astariul          18
+nicolabertoldi    17
+travel-go         16
+tuhinjubcse       16
+munael            16
+gvskalyan         15
+villmow           15
+MrityunjoyS       14
+getao             14
+aastha19          13
+haorannlp         13
+ghost             13
+14H034160212      13
+ismymajia         12
+louismartin       11
+sshleifer         11
+Name: created_by, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view distribution of the number of issues in a label</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">issues_df</span><span class="o">.</span><span class="n">num_labels</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">issues_df</span><span class="o">.</span><span class="n">num_labels</span><span class="p">)))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 6.0)
+</pre></div>
+</div>
+<img alt="../../_images/issue_extraction_20_1.png" src="../../_images/issue_extraction_20_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save dataframe</span>
+<span class="n">savename</span> <span class="o">=</span> <span class="n">USER</span> <span class="k">if</span> <span class="n">USER</span> <span class="k">else</span> <span class="n">REPO</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-_-&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">use_ceph</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_buffer</span><span class="p">:</span>
+        <span class="n">issues_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_buffer</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span>
+            <span class="n">Bucket</span><span class="o">=</span><span class="n">s3_bucket</span><span class="p">,</span>
+            <span class="n">Key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;github-labeler/data/</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span>
+            <span class="n">Body</span><span class="o">=</span><span class="n">csv_buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span>
+        <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">issues_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;../../data&quot;</span><span class="p">,</span> <span class="n">savename</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./src/data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../../docs/background.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Background</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../../notebooks/preprocess.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">SVM Preprocessing</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Anthony Ter-Saakov and the AI-COE at Red Hat<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
