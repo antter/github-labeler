@@ -1,0 +1,28 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: README.md
+parts:
+  - caption: Getting Started
+    chapters:
+    - file: docs/get-started
+    - file: docs/how-to-contribute
+    - file: docs/contents
+  - caption: Intro
+    chapters:
+    - file: docs/background
+  - caption: Dataset
+    chapters:
+    - file: src/data/issue_extraction
+  - caption: Preprocessing
+    chapters:
+    - file: notebooks/preprocess.ipynb
+    - file: src/data/build_w2v_vocab.ipynb
+    - file: notebooks/pretrain_w2v.ipynb
+  - caption: Training
+    chapters:
+    - file: models/train_models.ipynb
+  - caption: Demo
+    chapters:
+    - file: demo
