@@ -16,5 +16,5 @@ presubmits:
               memory: "500Mi"
               cpu: "300m"
             limits:
-              memory: "1Gi"
+              memory: "2Gi"
               cpu: "500m"
