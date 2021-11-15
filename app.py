@@ -80,8 +80,9 @@ with open("labellist.txt", "r") as h:
 def predict():
     """Take json data of title, body, created_by and returns a tab separated list of strings."""
     if request.method == "POST":
-        data = request.get_json() or "{}"
-        data = json.loads(data)
+        data = request.get_json()
+        if type(data) == str:
+            data = json.loads(data)
         title, body, creator = data["title"], data["body"], data["created_by"]
         if creator in bots:
             return ""
