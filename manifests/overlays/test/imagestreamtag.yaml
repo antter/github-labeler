@@ -7,7 +7,7 @@ spec:
     - name: latest
       from:
         kind: DockerImage
-        name: quay.io/atersaak/github-labeler:pr-40
+        name: quay.io/aicoe/github-labeler:latest
       importPolicy: {}
       referencePolicy:
         type: Source
