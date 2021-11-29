@@ -8,6 +8,6 @@ build:
    build-stratergy: Source
    base-image: "quay.io/thoth-station/s2i-thoth-ubi8-py38:v0.28.0"
    registry: quay.io
-   registry-org: atersaak
+   registry-org: aicoe
    registry-project: github-labeler
-   registry-secret: antter-thoth-pusher-secret
+   registry-secret: aicoe-pusher-secret
