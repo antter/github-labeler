@@ -1,13 +1,23 @@
 # Setup and configuring aicoe-ci with configuration file `.aicoe-ci.yaml`
 # Example `.aicoe-ci.yaml` with a full list of config options is available here: https://github.com/AICoE/aicoe-ci/blob/master/docs/.aicoe-ci.yaml
 check:
-  # Uncomment following line to build a public image of this repo
-  - thoth-build
-# Uncomment following lines to build a public image of this repo
-build:
-   build-stratergy: Source
-   base-image: "quay.io/thoth-station/s2i-thoth-ubi8-py38:v0.28.0"
-   registry: quay.io
-   registry-org: atersaak
-   registry-project: github-labeler
-   registry-secret: antter-thoth-pusher-secret
+  - overlays-build
+overlays_dir: overlays
+overlays:
+  - name: inference
+    build:
+      build-stratergy: Source
+      base-image: "quay.io/thoth-station/s2i-thoth-ubi8-py38:v0.28.0"
+      registry: quay.io
+      registry-org: aicoe
+      registry-project: github-labeler
+      registry-secret: aicoe-pusher-secret
+
+  - name: bot
+    build:
+      build-stratergy: Dockerfile
+      registry: quay.io
+      registry-org: aicoe
+      registry-project: github-labeler-bot
+      registry-secret: aicoe-pusher-secret
+      custom-tag: latest

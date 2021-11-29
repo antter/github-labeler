@@ -1,0 +1,32 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+coverage = "*"
+Sphinx = "*"
+
+[packages]
+src = {editable = true, path = "./"}
+awscli = "*"
+pandas = "*"
+requests = "*"
+boto3 = "*"
+fasttext = "*"
+skift = "*"
+numpy = "*"
+tqdm = "*"
+seaborn = "*"
+matplotlib = "*"
+python-dotenv = "*"
+Flask = "*"
+PyGithub = "*"
+nltk = "*"
+google-cloud-bigquery = "*"
+gensim = "*"
+langid = "*"
+
+[requires]
+python_version = "3.8"
